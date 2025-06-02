@@ -1,0 +1,166 @@
+
+    
+    body {
+        font-family: 'Times New Roman', Times, serif, sans-serif;
+        background-color: #e6e6e6;
+        margin: 0;
+        margin-top: 40px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 95vh;
+    }
+
+    .form-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 850px; 
+        height: default; 
+        margin: 120px; 
+        box-sizing: border-box;
+        text-align: center;
+        margin-top: 250px;
+    }
+
+    .titulo-centrado {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .button-container {
+        margin-top: 20px;
+        text-align: center
+    }
+
+    .button-container button {
+        padding: 15px 30px; 
+        border: none;
+        border-radius: 3px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    #btnGrabar {
+        background-color: #0faa11de; 
+        color: #fff;
+        text-align: left
+    }
+
+    #btnGrabar:hover {
+        background-color: #0faa11de; 
+    }
+
+    #btnCancelar {
+        background-color: #bd2222fd; 
+        color: #fff;
+        text-align: right
+    }
+
+    #btnCancelar:hover {
+        background-color: #bd2222fd; 
+    }
+
+    .imagen-container {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+    }
+      
+    .imagen-container-asignar {
+        display: block;
+        margin: 0 auto;
+        text-align: center;
+        background-color: #4CAF50;
+    }
+
+    .btn-asignar {
+        cursor: pointer;
+    }
+      
+    .tecnicos-container {
+        display: inline-block;
+        vertical-align: top;
+    }
+      
+    .tecnicos-container select {
+        margin-bottom: 10px;
+    }
+
+    .btn-asignar {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-asignar:hover {
+        background-color: #3e8e41;
+    }
+
+    #divFiltro {
+        margin-top: 20px;
+        margin-right: 40px;
+    }
+
+    #divFiltro select {
+        width: 285px;
+        height: 40px; 
+        font-size: 12px; 
+        padding: 10px;
+        border: 1px solid #cccccc;
+        border-radius: 10px;
+    }
+
+    #divFiltro label {
+        font-size: 14px; 
+        margin-bottom: 30px;
+    }
+
+    .fas {
+        font-size: 18px;
+        margin-block-start: 200px;
+        align-items: center;
+    }
+
+    .fas.fa-clock {
+        color: #ff0000;
+        margin-block-start: 200px;
+        align-content: center;
+    }
+
+    .fas.fa-spinner {
+        color: #2ecc71;
+        margin-block-start: 200px;
+        align-content: center;
+    }
+
+    .fas.fa-check {
+        color: #27ae60;
+        margin-block-start: 100px;
+        align-items: center;
+    }
+
+    #tablaIncidencias {
+        border-collapse: collapse;
+        width: 90%; 
+        margin-top: 5px;
+        zoom:100%
+    }
+
+    #tablaIncidencias th, #tablaIncidencias td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    #tablaIncidencias th {
+        background-color: #f0f0f0;
+    }
