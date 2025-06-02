@@ -1,0 +1,129 @@
+<!--DESCRIPCIÓN:
+La página actual define los elementos en los que se registra la incidencia. -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpdesk-Incidencia</title>
+    <link rel="stylesheet" type="text/css" href="/css/form.css">
+    <link rel="icon" href="/img/IMAGEN_ESCUDO.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/img/shieldimage.png" type="image/x-icon">
+</head>
+<body>
+
+    <video autoplay loop muted id="fondo">
+        <source src="/video/formvideo.mp4" type="video/mp4">
+    </video>
+
+    <div class="form-container">
+        <a href="/appview">Volver a mi cuenta</a>
+        <h1>REGISTRO DE INCIDENCIA</h1>
+        <h3>Bienvenido, por favor completa el siguiente formulario para atender la incidencia técnica:</h3>
+
+        <form>
+            <div class="campo-solo">
+                <div>
+                    <label for="email">Correo Electrónico:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+            </div>
+
+            <div class="campo-pareja">
+                <div>
+                    <label for="apellido1">Apellido Paterno:</label>
+                    <input type="text" id="apellido1" name="apellido1" required>
+                </div>
+                <div>
+                    <label for="apellido2">Apellido Materno:</label>
+                    <input type="text" id="apellido2" name="apellido2" required>
+                </div>
+            </div>
+
+            <div class="campo-pareja">
+                <div>
+                    <label for="Nombres">Nombres:</label>
+                    <input type="text" id="Nombres" name="Nombres" required>
+                </div>
+                <div>
+                    <label for="dni">Documento de Identidad:</label>
+                    <input type="text" id="dni" name="dni" required>
+                </div>
+            </div>
+
+            <div class="campo-solo">
+                <label for="SEDE">Seleccione la sede a la que pertenece:</label>
+                <select id="SEDE" name="SEDE" required>
+                    <option value="">(Hacer click): </option>
+                    <option value="CHIMBOTANA">CHIMBOTANA(OFICINA DE MANTENIMIENTO)</option>
+                    <option value="FISCALIZACIÓN">FISCALIZACIÓN</option>
+                    <option value="GERENCIA DE TRANSPORTES">GERENCIA DE TRANSPORTES(TEATRO MUNICIPAL)</option>
+                    <option value="PALACIO MUNICIPAL">PALACIO MUNICIPAL</option>
+                    <option value="PINACOTECA">PINACOTECA</option>
+                    <option value="SECOM">S.E.C.O.M.(E. SEGURIDAD CIUDADANA)</option>
+                    <option value="TALLANES">TALLANES(E. DESARROLLO SOCIAL)</option>
+                </select>
+            </div>
+
+            <div class="campo-solo">
+                <label for="CATEGORÍA">Categoría a la que pertenece el tipo de dispositivo:</label>
+                <select id="CATEGORÍA" name="CATEGORÍA" required>
+                    <option value="">(Hacer click):</option>
+                    <option value="CATEGORÍA_ORDENADORES">EQUIPOS DE CÓMPUTO</option>
+                    <option value="CATEGORÍA_REDES">REDES</option>
+                    <option value="CATEGORÍA_RADIOENLACES">RADIO ENLACES</option>
+                    <option value="CATEGORÍA_CÁMARASDEVIGILANCIA">CÁMARAS DE VIGILANCIA</option>
+                    <option value="CATEGORÍA_CÁMARASDEVIGILANCIA">CATEGORÍA DE DISPOSITIVOS DE ENTRADA, SALIDA U OTROS(Consejos)</option>
+                </select>
+            </div>
+
+            <div class="campo-pareja">
+                <div>
+                    <label for="TIPO_DISPOSITIVO">Tipo de Dispositivo Averíado:</label>
+                    <select id="TIPO_DISPOSITIVO" name="TIPO_DISPOSITIVO" required>
+                        <option value="">(Hacer click):</option>
+                        <option value="DISPOSITIVO_MOUSE">TECLADO</option>
+                        <option value="DISPOSITIVO_MONITOR">MONITOR</option>
+                        <option value="DISPOSITIVO_TECLADO">CPU</option>
+                        <option value="DISPOSITIVO_RADIOENLACES">IMPRESORA</option>
+                        <option value="DISPOSITIVO_CAMARADEVIGILANCIA">SWITCH</option>
+                        <option value="DISPOSITIVO_ROUTER">ROUTER</option>
+                        <option value="DISPOSITIVO_CAMARA">CÁMARA</option>
+                        <option value="DISPOSITIVO_OTROSAPOYOS">DISPOSITIVOS DE ENTRADA, SALIDA U OTROS(Consejos)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="codigo_bien">Código del bien(Código de doce dígitos en la pegatina adherida al artefacto.):</label>
+                    <input type="text" id="codigo_bien" name="codigo_bien" pattern="[0-9]{12}" title="Por favor, ingrese un código de 12 dígitos" required>
+                </div>
+            </div>
+
+            <div class="campo-solo2">
+                <div>
+                    <label for="comentarios">Descripción corta del problema(Escribir máximo una linea):</label>
+                    <textarea id="comentarios" name="comentarios" rows="1" maxlength="100" required></textarea>
+                </div>
+            </div>
+
+            <div class="campo-pareja">
+                <div>
+                    <label for="Marca">Marca:</label>
+                    <input type="text" id="Marca" name="Marca" required>
+                </div>
+                <div>
+                    <label for="Modelo">Modelo:</label>
+                    <input type="text" id="Modelo" name="Modelo">
+                </div>
+            </div>
+
+            <div class="button-container">
+                <button type="submit" class="btn registrar">REGISTRAR</button>
+                <button type="button" class="btn cancelar">CANCELAR</button>
+            </div>
+        </form>
+    </div>
+    <script src="/js/form.js"></script>
+</body>
+</html>
