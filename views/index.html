@@ -1,0 +1,37 @@
+<!--DESCRIPCIÓN:
+La página actual estipula la estructura y creación de la página de inicio de sesión,
+en la que se introducen las credenciales de los usuarios. -->
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpdesk-Iniciar sesión</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="icon" href="/img/shieldimage.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="form-container">
+        <h2 class="titulo-centrado">INICIAR SESIÓN</h2>
+        <br>
+        <div class="imagen-container">
+            <img src="/img/shieldimage.png" alt="Imagen de inicio de sesión">
+        </div>
+        <br>
+        <form>
+            <label for="usuario">Usuario(DNI):</label>
+            <input type="text" id="usuario" name="usuario"><br><br>
+            <label for="contraseña">Contraseña:</label>
+            <input type="password" id="contraseña" placeholder="Ej. Usuariop5-Usuario del quinto piso"><br>
+            <a href="/signup" style="font-size: 12px; color: #666;">Crear nueva cuenta</a><br><br>
+            <div class="button-container">
+                <button id="btnIniciarSesion">Iniciar Sesión</button>
+            </div>
+        </form>
+    </div>
+    <script src="/js/index.js"></script>
+</body>
+</html>
