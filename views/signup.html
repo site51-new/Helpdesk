@@ -1,0 +1,54 @@
+<!--DESCRIPCIÓN:
+La página actual estipula la estructura y creación de la página útil para
+la creación de una cuenta institucional con las credenciales adecuadas..-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpdesk-Regístrate</title>
+    <link rel="stylesheet" type="text/css" href="/css/signup.css">
+    <link rel="icon" href="/img/shieldimage.png" type="image/x-icon">
+</head>
+<body>
+    <div class="contenedor-plomo">
+        <a href="/" class="back">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 22.5L7.5 15M7.5 15L15 7.5M7.5 15H22.5" stroke="#1E88E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </a>
+        <div class="panel-blanco">
+            <div class="imagen-container">
+                <img src="/img/IMAGEN_ESCUDO_M.P.P.jpg" alt="Imagen de inicio de sesión">
+            </div>
+            <div class="form-container">
+                <h2 class="titulo-centos">REGISTRARSE</h2>
+                <div class="formulario">
+                    <div class="columna-izquierda">
+                        <label for="nombre">Nombres:</label>
+                        <input type="text" id="nombre" name="nombre"><br><br>
+                        <label for="dni">DNI:</label>
+                        <input type="text" id="dni" name="dni"><br><br>
+                        <label for="contraseña">Contraseña:</label>
+                        <input type="password" id="contraseña" name="contraseña"><br><br>
+                    </div>
+                    <div class="columna-derecha">
+                        <label for="apellido">Apellidos:</label>
+                        <input type="text" id="apellido" name="apellido"><br><br>
+                        <label for="correo">Correo electrónico:</label>
+                        <input type="email" id="correo" name="correo"><br><br>
+                        <label for="confirmar_contraseña">Confirmar contraseña:</label>
+                        <input type="password" id="confirmar_contraseña" name="confirmar_contraseña"><br><br>
+                    </div>
+                </div>
+                <div class="button-container">
+                    <button id="btnRegistrar">Crear cuenta</button>
+                    <p id="mensaje-botón"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/js/signup.js" defer></script>
+</body>
+</html>
