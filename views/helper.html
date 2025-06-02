@@ -1,0 +1,42 @@
+<!--DESCRIPCIÓN:
+La página actual estipula la estructura de la vista principal
+de los usuarios, contiene la bandeja de entrada y el elemento de acceso al Asistente.-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helpdesk</title>
+    <link rel="stylesheet" type="text/css" href="../css/appview.css">
+    <link rel="icon" href="../img/IMAGEN_ESCUDO.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../img/shieldimage.png" type="image/x-icon">
+</head>
+<body>
+    <a href="/" class="back">
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 22.5L7.5 15M7.5 15L15 7.5M7.5 15H22.5" stroke="#1E88E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </a>
+    <div class="imagen-container" style="position: absolute; top: 60px; right: 90px;">
+        <img id="boton-imagen" src="../img/ICONO_BANDEJA DE ENTRADA.png" alt="Imagen de botón de asignación">
+    </div>
+    <video autoplay loop muted id="fondo">
+        <source src="../video/page1video.mp4" type="video/mp4">
+    </video>
+    <div>
+        <p style="position: absolute; top: 30px; right: 120px; color: #333; font-weight: bold ;font-size: 18px; font-family: Times New Roman;">MENSAJES</p>
+    </div>
+    <h1 style="position: absolute; top: 310px; left: 140px; color: #333; font-size: 36px; font-weight: bold;">Soporte Técnico</h1>
+    <p style="position: absolute; top: 390px; left: 180px; color: #333; font-size: 18px;">Explícanos tu problema.</p>
+
+    <div id="panel-conversacion" style="display: none;">
+        <div id="conversacion"></div>
+    </div>
+    <div id="panel-mensaje" style="display: none;">
+        <h2>Mensajes nuevos:</h2>
+        <p>- La incidencia del mouse está en estado Pendiente.</p>
+    </div>
+    <script src="../js/helper.js"></script>
+</body>
+</html>
