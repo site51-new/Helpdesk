@@ -3,26 +3,22 @@ La página actual define los elementos en los que se registra la incidencia. -->
 
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Helpdesk-Incidencia</title>
-    <link rel="stylesheet" type="text/css" href="./public/css/form.css">
-    <link rel="icon" href="./public/img/IMAGEN_ESCUDO.png" type="image/x-icon">
-    <link rel="shortcut icon" href="./public/img/shieldimage.png" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../public/css/form.css">
+    <link rel="icon" href="/img/IMAGEN_ESCUDO.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../public/img/shieldimage.png" type="image/x-icon">
 </head>
 <body>
-
     <video autoplay loop muted id="fondo">
-        <source src="./public/video/formvideo.mp4" type="video/mp4">
+        <source src="../public/video/formvideo.mp4" type="video/mp4">
     </video>
-
     <div class="form-container">
         <a href="appview.html">Volver a mi cuenta</a>
         <h1>REGISTRO DE INCIDENCIA</h1>
         <h3>Bienvenido, por favor completa el siguiente formulario para atender la incidencia técnica:</h3>
-
         <form>
             <div class="campo-solo">
                 <div>
@@ -30,7 +26,6 @@ La página actual define los elementos en los que se registra la incidencia. -->
                     <input type="email" id="email" name="email" required>
                 </div>
             </div>
-
             <div class="campo-pareja">
                 <div>
                     <label for="apellido1">Apellido Paterno:</label>
@@ -41,7 +36,6 @@ La página actual define los elementos en los que se registra la incidencia. -->
                     <input type="text" id="apellido2" name="apellido2" required>
                 </div>
             </div>
-
             <div class="campo-pareja">
                 <div>
                     <label for="Nombres">Nombres:</label>
@@ -52,7 +46,6 @@ La página actual define los elementos en los que se registra la incidencia. -->
                     <input type="text" id="dni" name="dni" required>
                 </div>
             </div>
-
             <div class="campo-solo">
                 <label for="SEDE">Seleccione la sede a la que pertenece:</label>
                 <select id="SEDE" name="SEDE" required>
@@ -66,7 +59,6 @@ La página actual define los elementos en los que se registra la incidencia. -->
                     <option value="TALLANES">TALLANES(E. DESARROLLO SOCIAL)</option>
                 </select>
             </div>
-
             <div class="campo-solo">
                 <label for="CATEGORÍA">Categoría a la que pertenece el tipo de dispositivo:</label>
                 <select id="CATEGORÍA" name="CATEGORÍA" required>
@@ -78,7 +70,6 @@ La página actual define los elementos en los que se registra la incidencia. -->
                     <option value="CATEGORÍA_CÁMARASDEVIGILANCIA">CATEGORÍA DE DISPOSITIVOS DE ENTRADA, SALIDA U OTROS(Consejos)</option>
                 </select>
             </div>
-
             <div class="campo-pareja">
                 <div>
                     <label for="TIPO_DISPOSITIVO">Tipo de Dispositivo Averíado:</label>
@@ -99,14 +90,12 @@ La página actual define los elementos en los que se registra la incidencia. -->
                     <input type="text" id="codigo_bien" name="codigo_bien" pattern="[0-9]{12}" title="Por favor, ingrese un código de 12 dígitos" required>
                 </div>
             </div>
-
             <div class="campo-solo2">
                 <div>
                     <label for="comentarios">Descripción corta del problema(Escribir máximo una linea):</label>
                     <textarea id="comentarios" name="comentarios" rows="1" maxlength="100" required></textarea>
                 </div>
             </div>
-
             <div class="campo-pareja">
                 <div>
                     <label for="Marca">Marca:</label>
@@ -117,13 +106,12 @@ La página actual define los elementos en los que se registra la incidencia. -->
                     <input type="text" id="Modelo" name="Modelo">
                 </div>
             </div>
-
             <div class="button-container">
                 <button type="submit" class="btn registrar">REGISTRAR</button>
                 <button type="button" class="btn cancelar">CANCELAR</button>
             </div>
         </form>
     </div>
-    <script src="./public/js/form.js"></script>
+    <script src="../public/js/form.js"></script>
 </body>
 </html>
