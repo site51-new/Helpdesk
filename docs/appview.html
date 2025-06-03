@@ -1,14 +1,13 @@
 <!--DESCRIPCIÓN:
 La página actual estipula la estructura de la vista principal
 de los usuarios, contiene la bandeja de entrada y el elemento de acceso al Asistente.-->
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Helpdesk</title>
-    <link rel="stylesheet" type="text/css" href="./css/appview.css">
+    <link rel="stylesheet" type="text/css" href="./public/css/appview.css">
     <link rel="icon" href="./public/img/IMAGEN_ESCUDO.png" type="image/x-icon">
     <link rel="shortcut icon" href="./public/img/shieldimage.png" type="image/x-icon">
 </head>
@@ -22,14 +21,14 @@ de los usuarios, contiene la bandeja de entrada y el elemento de acceso al Asist
         <img id="boton-imagen" src="./public/img/ICONO_BANDEJA DE ENTRADA.png" alt="Imagen de botón de asignación">
     </div>
     <video autoplay loop muted id="fondo">
-        <source src="./video/page1video.mp4" type="video/mp4">
+        <source src="./public/video/page1video.mp4" type="video/mp4">
     </video>
     <div>
         <p style="position: absolute; top: 30px; right: 120px; color: #333; font-weight: bold ;font-size: 18px; font-family: Times New Roman;">MENSAJES</p>
     </div>
     <h1 style="position: absolute; top: 310px; left: 140px; color: #333; font-size: 36px; font-weight: bold;">Soporte Técnico</h1>
     <p style="position: absolute; top: 390px; left: 180px; color: #333; font-size: 18px;">Explícanos tu problema.</p>
-    <button id="botón-chatbot" onclick="window.open('/helper', '_blank')" style="position: absolute; top: 440px; left: 130px; cursor: pointer; text-decoration: none; padding: 20px 40px; font-size: 24px; font-weight: bold; color: #fff; background-color: #3cb840; border: none; border-radius: 10px;">Acceder al Chatbot</button>
+    <button id="botón-chatbot" onclick="window.location.href='../views/helper.html'" style="position: absolute; top: 440px; left: 130px; cursor: pointer; text-decoration: none; padding: 20px 40px; font-size: 24px; font-weight: bold; color: #fff; background-color: #3cb840; border: none; border-radius: 10px;">Acceder al Chatbot</button>
     <div id="panel-conversacion" style="display: none;">
         <div id="conversacion"></div>
     </div>
