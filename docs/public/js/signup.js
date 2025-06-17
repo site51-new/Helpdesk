@@ -1,67 +1,75 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const btnRegistrar = document.getElementById('btnRegistrar');
-    const mensajeBotón = document.getElementById('mensaje-botón');
-
-    if (btnRegistrar) {
-        btnRegistrar.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            const nombre = document.getElementById('nombre').value.trim();
-            const apellido = document.getElementById('apellido').value.trim();
-            const dni = document.getElementById('dni').value.trim();
-            const correo = document.getElementById('correo').value.trim();
-            const contraseña = document.getElementById('contraseña').value.trim();
-            const confirmarContraseña = document.getElementById('confirmar_contraseña').value.trim();
-
-            const dniRegex = /^\d{8}$/;
-            if (!dniRegex.test(dni)) {
-                mensajeBotón.textContent = 'El DNI debe tener 8 dígitos';
-                return;
-            }
-
-            const contraseñaRegex = new RegExp(`^${dni}p[1-9]$`);
-            if (!contraseñaRegex.test(contraseña)) {
-                mensajeBotón.textContent = 'La contraseña debe ser el DNI seguido de la letra "p" y un dígito del 1 al 9';
-                return;
-            }
-
-            if (nombre && apellido && dni && correo && contraseña && confirmarContraseña) {
-                if (contraseña === confirmarContraseña) {
-                    const userData = {
-                        nombre,
-                        apellido,
-                        dni,
-                        correo,
-                        contraseña
-                    };
-
-                    fetch('/register', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(userData)
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log(data);
-                            mensajeBotón.textContent = data.mensaje;
-                            if (data.mensaje === 'Cuenta creada con éxito') {
-                                // window.location.href = '/login';
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                            mensajeBotón.textContent = 'Ocurrió un error al intentar crear la cuenta';
-                        });
-                } else {
-                    mensajeBotón.textContent = 'Las contraseñas no coinciden';
-                }
-            } else {
-                mensajeBotón.textContent = 'Por favor, complete todos los campos.';
-            }
-        });
-    } else {
-        console.error('No se encontró el botón de registrar');
-    }
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("btnRegistrar").addEventListener("click", registrarUsuario);
 });
+
+function registrarUsuario(e) {
+    e.preventDefault(); 
+
+    const nombre = document.getElementById("nombre").value.trim();
+    const apellido = document.getElementById("apellido").value.trim();
+    const dni = document.getElementById("dni").value.trim();
+    const correo = document.getElementById("correo").value.trim();
+    const contrasena = document.getElementById("contrasena").value.trim();
+    const confirmarContrasena = document.getElementById("confirmar_contrasena").value.trim();
+    const mensajeBoton = document.getElementById("mensaje-boton");
+
+    mensajeBoton.textContent = "";
+    mensajeBoton.style.color = "red";
+
+    if (!nombre || !apellido || !dni || !correo || !contrasena || !confirmarContrasena) {
+        mensajeBoton.textContent = "Por favor, complete todos los campos.";
+        return;
+    }
+
+    const dniRegex = /^\d{8}$/;
+    if (!dniRegex.test(dni)) {
+        mensajeBoton.textContent = "El DNI debe tener exactamente 8 dígitos.";
+        return;
+    }
+
+    const contrasenaRegex = new RegExp(`^${dni}p[1-9]$`);
+    if (!contrasenaRegex.test(contrasena)) {
+        mensajeBoton.textContent = "La contraseña debe ser el DNI seguido de la letra 'p' y un dígito del 1 al 9.";
+        return;
+    }
+
+    if (contrasena !== confirmarContrasena) {
+        mensajeBoton.textContent = "Las contraseñas no coinciden.";
+        return;
+    }
+
+    const userData = {
+        nombre,
+        apellido,
+        dni,
+        correo,
+        contrasena,
+    };
+
+    fetch("/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userData),
+    })
+        .then(async (response) => {
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.mensaje || "Error al registrar usuario");
+            }
+            return response.json();
+        })
+        .then((data) => {
+            mensajeBoton.style.color = "green";
+            mensajeBoton.textContent = "Cuenta creada con éxito.";
+            ["nombre", "apellido", "dni", "correo", "contrasena", "confirmar_contrasena"].forEach(id => {
+                document.getElementById(id).value = "";
+            });
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+            mensajeBoton.style.color = "red";
+            mensajeBoton.textContent = error.message || "Ocurrió un error al intentar crear la cuenta.";
+        });
+}
