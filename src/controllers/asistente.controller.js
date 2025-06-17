@@ -1,4 +1,4 @@
-﻿const Incidencia = require('../models/incidencia.model');
+const Incidencia = require('../models/incidencia.model');
 
 exports.obtenerOpciones = async (req, res) => {
     try {
