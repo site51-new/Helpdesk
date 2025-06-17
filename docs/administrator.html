@@ -1,158 +1,73 @@
-    
-    <!--DESCRIPCIÓN:
-    La página actual estipula la estructura y creación de una página útil 
-    para la inscripción de las cualidades fundamentales de las incidencias 
-    acontecidas en la institución.-->
-    
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Helpdesk-Grilla de Incidencias</title>
-        <link rel="stylesheet" type="text/css" href="./public/css/administrator.css">
-        <link rel="icon" href="./img/IMAGEN_ESCUDO.png" type="image/x-icon">
-        <link rel="shortcut icon" href="./public/img/shieldimage.png" type="image/x-icon">
-    </head>
-
-    <body>
-        <div class="form-container">
-            <h2 class="titulo-centrado">&nbsp;&nbsp;INCIDENCIAS TÉCNICAS&nbsp;&nbsp;</h2>
-            <h4>Bienvenido, a continuación se muestran las Incidencias registradas con sus datos correspondientes:</h4>       
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Helpdesk - Incidencias</title>
+    <link rel="stylesheet" href="/css/administrator.css" />
+    <link rel="icon" href="/img/IMAGEN_ESCUDO.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="/img/shieldimage.png" type="image/x-icon" />
+</head>
+<body>
+    <a href="/" class="back" title="Volver">
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 22.5L7.5 15M7.5 15L15 7.5M7.5 15H22.5" stroke="#1E88E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </a>
+    <div class="header">
+        <h2 class="titulo-centrado">INCIDENCIAS TÉCNICAS</h2>
+        <h4 class="subtitulo">Bienvenido, a continuación se muestran las incidencias registradas con sus datos correspondientes:</h4>
+    </div>
+    <div id="main-container">
+        <div id="tablaContainer">
             <form id="miFormulario">
-                <table id="tablaIncidencias" border="1" cellpadding="5" cellspacing="0">
+                <table id="tablaIncidencias">
                     <thead>
-                      <tr>
-                        <th>Hora de la Incidencia</th>
-                        <th>IdIncidencia</th>
-                        <th>Sede de la Incidencia</th>
-                        <th>Categoria(Equipo)</th>
-                        <th>&nbsp;&nbsp;Técnico&nbsp;Asignado&nbsp;&nbsp;
-                        </th>
-                        <th>&nbsp;&nbsp;Estado&nbsp;Actual&nbsp;&nbsp;</th>
-                      </tr>
+                        <tr>
+                            <th>Fecha y Hora</th>
+                            <th>ID Incidencia</th>
+                            <th>Sede</th>
+                            <th>Categoría</th>
+                            <th>Descripción</th>
+                            <th>Técnico Asignado</th>
+                            <th>Estado Actual</th>
+                        </tr>
                     </thead>
                     <tbody id="cuerpoTabla">
-                      <tr>
-                        <td>10:00AM</td>
-                        <td>INC-001</td>
-                        <td>PALACIO MUNICIPAL</td>
-                        <td>
-                            Equipo de sonido
-                            <h5>
-                                >>El equipo presenta daños que repercuten en el
-                                encendido u apagado.
-                            </h5>
-                        </td>
-                        <td>
-                            <select id="tecnico1">
-                              <option value="">No Asignar-Incidencia atendida</option>
-                              <option value="Técnico 1">César Mezones</option>
-                              <option value="Técnico 2">Edson Antón</option>
-                              <option value="Técnico 3">Elmer García</option>
-                              <option value="Técnico 4">Ericka Rojas</option>
-                              <option value="Técnico 5">José Torrico</option>
-                              <option value="Técnico 6">Héctor Nima</option>
-                              <option value="Técnico 7">Isaac Zegarra</option>
-                            </select>
-                          </td>
-                        <td style="text-align: center;">
-                            <br>
-                            <div class="imagen-container">
-                              <img src="./public/img/pendiente.png" alt="Imagen de botón de asignación">
-                            </div>
-                            <br>PENDIENTE
-                          </td>
-                      </tr>
-                      <tr>
-                        <td>11:00AM</td>
-                        <td>INC-002</td>
-                        <td>S.E.C.O.M</td>
-                        <td>
-                          Equipo de cómputo
-                            <h5>
-                                >>El equipo presenta rasguños y roturas leves.
-                            </h5>
-                        </td>
-                        <td>
-                            <select id="tecnico2">
-                                <option value="">No Asignar-Incidencia atendida</option>
-                                <option value="Técnico 1">César Mezones</option>
-                                <option value="Técnico 2">Edson Antón</option>
-                                <option value="Técnico 3">Elmer García</option>
-                                <option value="Técnico 4">Ericka Rojas</option>
-                                <option value="Técnico 5">José Torrico</option>
-                                <option value="Técnico 6">Héctor Nima</option>
-                                <option value="Técnico 7">Isaac Zegarra</option>
-                            </select>
-                        </td>
-                        <td style="text-align: center;">
-                            <br>
-                            <div class="imagen-container">
-                              <img src="./public/img/enproceso.png" alt="Imagen de botón de asignación">
-                            </div>
-                            <br>EN PROCESO
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>12:00PM</td>
-                        <td>INC-003</td>
-                        <td>TALLANES</td>
-                        <td>
-                          Equipo de iluminación
-                            <h5>
-                                >>El equipo presenta problemas de baja iluminación o parpadeos constantes.
-                            </td>
-                        <td>
-                            <select id="tecnico2">
-                                <option value="">No Asignar-Incidencia atendida</option>
-                                <option value="Técnico 1">César Mezones</option>
-                                <option value="Técnico 2">Edson Antón</option>
-                                <option value="Técnico 3">Elmer García</option>
-                                <option value="Técnico 4">Ericka Rojas</option>
-                                <option value="Técnico 5">José Torrico</option>
-                                <option value="Técnico 6">Héctor Nima</option>
-                                <option value="Técnico 7">Isaac Zegarra</option>
-                            </select>
-                      </td>
-                        <td style="text-align: center;">
-                            <br>
-                            <div class="imagen-container">
-                              <img src="./public/img/atendido.png" alt="Imagen de botón de asignación">
-                            </div>
-                            <br>ATENDIDO
-                          </td>
-                      </tr>
-                      </tbody>
-                      </table>
-
+                        <!-- Se cargan dinámicamente con JavaScript -->
+                    </tbody>
+                </table>
                 <div class="button-container">
-                    <br><button id="btnGrabar" onclick="grabarFormulario()">Grabar</button>
-                    <button id="btnCancelar" onclick="cancelarFormulario()">Cancelar</button><br>    
+                    <button type="button" id="btnGrabar" class="btn">Guardar Cambios</button>
+                    <button type="button" id="btnCancelar" class="btn cancelar">Cancelar Cambios</button>
                 </div>
             </form>
         </div>
+
         <div id="divFiltro">
             <h2>FILTRAR INCIDENCIAS</h2>
-            <label for="lugarIncidencia">Lugar de la Incidencia:</label> 
-            <br><select id="lugarIncidencia" onchange="filtrarIncidencias()">
+            <label for="lugarIncidencia">Lugar de la Incidencia:</label>
+            <select id="lugarIncidencia">
                 <option value="">Seleccione la sede de la incidencia.</option>
                 <option value="FISCALIZACION">FISCALIZACION</option>
-                <option value="CHIMBOTANA">OFICINA DE MANTENIMIENTO</option>
+                <option value="OFICINA DE MANTENIMIENTO">OFICINA DE MANTENIMIENTO</option>
                 <option value="PALACIO MUNICIPAL">PALACIO MUNICIPAL</option>
                 <option value="PINACOTECA">PINACOTECA</option>
-                <option value="S.E.C.O.M">S.E.C.O.M(E. SEGURIDAD CIUDADANA)</option>
-                <option value="TALLANES">TALLANES(E. DESARROLLO SOCIAL)</option>
-                <option value="GERENCIA DE TRANSPORTES">TEATRO MUNICIPAL(GERENCIA DE TRANSPORTES)</option>
-            </select><br>
+                <option value="S.E.C.O.M">S.E.C.O.M</option>
+                <option value="TALLANES">TALLANES</option>
+                <option value="GERENCIA DE TRANSPORTES">GERENCIA DE TRANSPORTES</option>
+            </select>
 
             <label for="EstadoIncidencia">Estado de la Incidencia:</label>
-            <br><select id="EstadoIncidencia" onchange="filtrarIncidencias()"><br>
-                <option value="">Seleccione el estado de la Incidencia.</option>
-                <option value="ATENDIDA">ATENDIDA</option>
+            <select id="EstadoIncidencia">
+                <option value="">Seleccione el estado de la incidencia.</option>
+                <option value="ATENDIDO">ATENDIDO</option>
                 <option value="EN PROCESO">EN PROCESO</option>
                 <option value="PENDIENTE">PENDIENTE</option>
-            </select><br>
+            </select>
         </div>
-    </body>
-    </html>
+    </div>
+
+    <script src="/js/administrator.js"></script>
+</body>
+</html>
