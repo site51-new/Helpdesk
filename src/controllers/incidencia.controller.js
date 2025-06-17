@@ -46,7 +46,7 @@ exports.actualizarIncidencia = async (req, res) => {
 exports.eliminarIncidencia = async (req, res) => {
     try {
         await Incidencia.eliminarIncidencia(req.params.id);
-        res.json({ mensaje: 'Incidencia eliminada con éxito' });
+        res.json({ mensaje: 'Incidencia eliminada con Ã©xito' });
     } catch (error) {
         res.status(500).json({ mensaje: 'Error al eliminar incidencia' });
     }
