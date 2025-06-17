@@ -1,6 +1,18 @@
 const Incidencia = require('../models/incidencia.model');
 const Usuario = require('../models/usuario.model');
 
+exports.verificarRolAdministrador = async (req, res, next) => {
+    try {
+        const usuario = req.usuario;
+        if (usuario.rol !== 'administrador') {
+            return res.status(403).json({ mensaje: 'Acceso denegado' });
+        }
+        next();
+    } catch (error) {
+        res.status(500).json({ mensaje: 'Error al verificar rol' });
+    }
+};
+
 exports.obtenerIncidenciasPendientes = async (req, res) => {
     try {
         const incidencias = await Incidencia.obtenerTodasLasIncidencias();
@@ -20,7 +32,7 @@ exports.asignarIncidencia = async (req, res) => {
         incidencia.tecnico_encargado = req.body.tecnico_encargado;
         incidencia.estado_incidencia = 'Asignada';
         await Incidencia.actualizarIncidencia(req.params.id, incidencia);
-        res.json({ mensaje: 'Incidencia asignada con éxito' });
+        res.json({ mensaje: 'Incidencia asignada con Ã©xito' });
     } catch (error) {
         res.status(500).json({ mensaje: 'Error al asignar incidencia' });
     }
@@ -34,7 +46,7 @@ exports.actualizarEstadoIncidencia = async (req, res) => {
         }
         incidencia.estado_incidencia = req.body.estado_incidencia;
         await Incidencia.actualizarIncidencia(req.params.id, incidencia);
-        res.json({ mensaje: 'Estado de incidencia actualizado con éxito' });
+        res.json({ mensaje: 'Estado de incidencia actualizado con Ã©xito' });
     } catch (error) {
         res.status(500).json({ mensaje: 'Error al actualizar estado de incidencia' });
     }
@@ -50,5 +62,5 @@ exports.obtenerReporteIncidencias = async (req, res) => {
 };
 
 exports.administrador = (req, res) => {
-    res.render('administrador');
+    res.sendFile('administrator.html', { root: './views' });
 };
