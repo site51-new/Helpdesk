@@ -4,9 +4,9 @@ const Estado = {
     async crearEstado(estado) {
         try {
             const query = {
-                text: `INSERT INTO tEstados (Id_Incidencia, descripci髇)
+                text: `INSERT INTO tEstados (Id_Incidencia, descripci贸n)
          VALUES ($1, $2) RETURNING *`,
-                values: [estado.Id_Incidencia, estado.descripci髇],
+                values: [estado.Id_Incidencia, estado.descripci贸n],
             };
             const result = await pool.query(query);
             return result.rows[0];
@@ -43,9 +43,9 @@ const Estado = {
     async actualizarEstado(id, estado) {
         try {
             const query = {
-                text: `UPDATE tEstados SET Id_Incidencia = $1, descripci髇 = $2
+                text: `UPDATE tEstados SET Id_Incidencia = $1, descripci贸n = $2
          WHERE Id_Estado = $3 RETURNING *`,
-                values: [estado.Id_Incidencia, estado.descripci髇, id],
+                values: [estado.Id_Incidencia, estado.descripci贸n, id],
             };
             const result = await pool.query(query);
             return result.rows[0];
