@@ -1,5 +1,6 @@
 const Usuario = require('../models/usuario.model');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 exports.login = async (req, res) => {
     try {
@@ -8,14 +9,15 @@ exports.login = async (req, res) => {
             return res.status(401).json({ mensaje: 'Credenciales inválidas' });
         }
 
-        const password = req.body.contraseña;
-        if (password !== usuario.password) {
+        const isValidPassword = await bcrypt.compare(req.body.contrasena, usuario.password);
+        if (!isValidPassword) {
             return res.status(401).json({ mensaje: 'Credenciales inválidas' });
         }
 
-        const token = jwt.sign({ id: usuario.Id_Usuario }, process.env.SECRET_KEY, { expiresIn: '1h' });
-        res.json({ token });
+        const token = jwt.sign({ id: usuario.Id_Personal }, process.env.SECRET_KEY, { expiresIn: '1h' });
+        res.json({ token: `Bearer ${token}` });
     } catch (error) {
+        console.error('Error en login:', error);
         res.status(500).json({ mensaje: 'Error al autenticar usuario' });
     }
 };
@@ -23,8 +25,9 @@ exports.login = async (req, res) => {
 exports.register = async (req, res) => {
     console.log('Registro de usuario iniciado');
     try {
-        const { nombre, apellido, dni, correo, contraseña } = req.body;
-        if (!nombre || !apellido || !dni || !correo || !contraseña) {
+        const { nombre, apellido, dni, correo, contrasena, Id_Dependencia } = req.body;
+
+        if (!nombre || !apellido || !dni || !correo || !contrasena) {
             return res.status(400).json({ mensaje: 'Por favor, complete todos los campos' });
         }
 
@@ -33,31 +36,58 @@ exports.register = async (req, res) => {
             return res.status(400).json({ mensaje: 'El DNI debe tener 8 dígitos' });
         }
 
-        const contraseñaRegex = new RegExp(`^${dni}p[1-9]$`);
-        if (!contraseñaRegex.test(contraseña)) {
+        const contrasenaRegex = new RegExp(`^${dni}p[1-9]$`);
+        if (!contrasenaRegex.test(contrasena)) {
             return res.status(400).json({ mensaje: 'La contraseña debe ser el DNI seguido de la letra "p" y un dígito del 1 al 9' });
         }
 
-        const usuario = await Usuario.crearUsuario(req.body);
-        console.log('Usuario creado con éxito');
-        res.status(201).json({ mensaje: 'Cuenta creada con éxito', usuario });
+        const existe = await Usuario.existeUsuarioPorCorreoODni(correo, dni);
+        if (existe) {
+            return res.status(409).json({ mensaje: 'El correo o DNI ya están registrados' });
+        }
+
+        const hashedPassword = await bcrypt.hash(contrasena, 10);
+
+        const usuario = {
+            usuario: dni,
+            password: hashedPassword,
+            nombre,
+            apellido,
+            dni,
+            correo,
+            Id_Dependencia: Id_Dependencia || '1'  // Puedes ajustar según la lógica de dependencia
+        };
+
+        const nuevoUsuario = await Usuario.crearUsuario(usuario);
+
+        console.log('Usuario creado con éxito:', nuevoUsuario);
+        res.status(201).json({ mensaje: 'Usuario registrado con éxito' });
+
     } catch (error) {
         console.error('Error al registrar usuario:', error);
-        res.status(500).json({ mensaje: 'Error al registrar usuario' });
+        res.status(500).json({ mensaje: 'Error al registrar usuario', error: error.message });
     }
 };
 
 exports.logout = async (req, res) => {
-    // Código de la función logout
+    try {
+        res.json({ mensaje: 'Sesión cerrada con éxito' });
+    } catch (error) {
+        res.status(500).json({ mensaje: 'Error al cerrar sesión' });
+    }
 };
 
 exports.verificarToken = async (req, res, next) => {
     try {
-        const token = req.header('Authorization').replace('Bearer ', '');
-        const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        const token = req.header('Authorization');
+        if (!token) {
+            return res.status(401).json({ mensaje: 'Token no proporcionado' });
+        }
+        const tokenWithoutBearer = token.replace('Bearer ', '');
+        const decoded = jwt.verify(tokenWithoutBearer, process.env.SECRET_KEY);
         req.usuario = await Usuario.obtenerUsuario(decoded.id);
         next();
     } catch (error) {
-        res.status(401).json({ mensaje: 'Token inválido o expirado' });
+        res.status(401).json({ mensaje: 'Token inválido' });
     }
 };
