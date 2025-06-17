@@ -5,7 +5,7 @@ exports.crearUsuario = async (req, res) => {
         const usuario = await Usuario.crearUsuario(req.body);
         res.status(201).json(usuario);
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al crear usuario' });
+        res.status(500).json({ mensaje: 'Error al crear usuario', error: error.message });
     }
 };
 
@@ -14,7 +14,7 @@ exports.obtenerUsuarios = async (req, res) => {
         const usuarios = await Usuario.obtenerTodosLosUsuarios();
         res.json(usuarios);
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al obtener usuarios' });
+        res.status(500).json({ mensaje: 'Error al obtener usuarios', error: error.message });
     }
 };
 
@@ -27,15 +27,15 @@ exports.actualizarUsuario = async (req, res) => {
         const usuarioActualizado = await Usuario.actualizarUsuario(req.params.id, req.body);
         res.json(usuarioActualizado);
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al actualizar usuario' });
+        res.status(500).json({ mensaje: 'Error al actualizar usuario', error: error.message });
     }
 };
 
 exports.eliminarUsuario = async (req, res) => {
     try {
         await Usuario.eliminarUsuario(req.params.id);
-        res.json({ mensaje: 'Usuario eliminado con éxito' });
+        res.json({ mensaje: 'Usuario eliminado con Ã©xito' });
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al eliminar usuario' });
+        res.status(500).json({ mensaje: 'Error al eliminar usuario', error: error.message });
     }
 };
