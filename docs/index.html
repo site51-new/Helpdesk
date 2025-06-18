@@ -4,32 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Helpdesk-Iniciar sesión</title>
-    <link rel="stylesheet" href="./public/css/index.css" />
-    <link rel="icon" href="./public/img/shieldimage.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/public/css/index.css" />
+    <link rel="icon" href="/public/img/shieldimage.png" type="image/x-icon" />
 </head>
 <body>
     <div class="form-container">
         <h2 class="titulo-centrado">INICIAR SESIÓN</h2>
         <br />
         <div class="imagen-container">
-            <img src="./public/img/shieldimage.png" alt="Imagen de inicio de sesión" />
+            <img src="/public/img/shieldimage.png" alt="Imagen de inicio de sesión" />
         </div>
         <br />
         <form autocomplete="off">
             <label for="usuario">Usuario(DNI):</label>
             <input type="text" id="usuario" name="usuario" autocomplete="off" /><br /><br />
             <label for="contrasena">Contraseña:</label>
-            <input type="password"
-                   id="contrasena"
-                   name="contrasena"
-                   placeholder="Ej. Usuariop5-Usuario del quinto piso"
-                   autocomplete="new-password" /><br />
+            <input
+                type="password"
+                id="contrasena"
+                name="contrasena"
+                placeholder="Ej. Usuariop5-Usuario del quinto piso"
+                autocomplete="new-password"
+            /><br />
             <a href="signup.html" style="font-size: 12px; color: #666;">Crear nueva cuenta</a><br /><br />
             <div class="button-container">
                 <button id="btnIniciarSesion">Iniciar Sesión</button>
             </div>
         </form>
     </div>
-    <script src="./public/js/index.js"></script>
+    <script src="/public/js/index.js"></script>
 </body>
 </html>
