@@ -4,27 +4,31 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Helpdesk - Incidencias</title>
-    <link rel="stylesheet" href="./public/css/administrator.css" />
+    <link rel="stylesheet" href="/css/administrator.css" />
     <link rel="icon" href="/img/IMAGEN_ESCUDO.png" type="image/x-icon" />
     <link rel="shortcut icon" href="/img/shieldimage.png" type="image/x-icon" />
 </head>
 <body>
     <a href="/" class="back" title="Volver">
         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 22.5L7.5 15M7.5 15L15 7.5M7.5 15H22.5" stroke="#1E88E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M15 22.5L7.5 15M7.5 15L15 7.5M7.5 15H22.5"
+                  stroke="#1E88E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     </a>
+
     <div class="header">
         <h2 class="titulo-centrado">INCIDENCIAS TÉCNICAS</h2>
-        <h4 class="subtitulo">Bienvenido, a continuación se muestran las incidencias registradas con sus datos correspondientes:</h4>
+        <h4 class="subtitulo">Bienvenido. Aquí se muestran las incidencias registradas:</h4>
     </div>
-    <div id="main-container">
-        <div id="tablaContainer">
+
+    <div id="main-container" style="display: flex; flex-direction: row; gap: 20px; align-items: flex-start; justify-content: space-between;">
+
+        <div id="tablaContainer" style="flex: 1;">
             <form id="miFormulario">
                 <table id="tablaIncidencias">
                     <thead>
                         <tr>
-                            <th>Fecha y Hora</th>
+                            <th>Hora</th>
                             <th>ID Incidencia</th>
                             <th>Sede</th>
                             <th>Categoría</th>
@@ -33,9 +37,7 @@
                             <th>Estado Actual</th>
                         </tr>
                     </thead>
-                    <tbody id="cuerpoTabla">
-                        <!-- Se cargan dinámicamente con JavaScript -->
-                    </tbody>
+                    <tbody id="cuerpoTabla"></tbody>
                 </table>
                 <div class="button-container">
                     <button type="button" id="btnGrabar" class="btn">Guardar Cambios</button>
@@ -44,11 +46,13 @@
             </form>
         </div>
 
-        <div id="divFiltro">
+
+        <div id="divFiltro" style="width: 300px;">
             <h2>FILTRAR INCIDENCIAS</h2>
+
             <label for="lugarIncidencia">Lugar de la Incidencia:</label>
             <select id="lugarIncidencia">
-                <option value="">Seleccione la sede de la incidencia.</option>
+                <option value="">Seleccione la sede</option>
                 <option value="FISCALIZACION">FISCALIZACION</option>
                 <option value="OFICINA DE MANTENIMIENTO">OFICINA DE MANTENIMIENTO</option>
                 <option value="PALACIO MUNICIPAL">PALACIO MUNICIPAL</option>
@@ -58,16 +62,19 @@
                 <option value="GERENCIA DE TRANSPORTES">GERENCIA DE TRANSPORTES</option>
             </select>
 
+            <br><br>
+
             <label for="EstadoIncidencia">Estado de la Incidencia:</label>
             <select id="EstadoIncidencia">
-                <option value="">Seleccione el estado de la incidencia.</option>
+                <option value="">Seleccione el estado</option>
                 <option value="ATENDIDO">ATENDIDO</option>
                 <option value="EN PROCESO">EN PROCESO</option>
                 <option value="PENDIENTE">PENDIENTE</option>
             </select>
         </div>
+
     </div>
 
-    <script src="./public/js/administrator.js"></script>
+    <script src="/js/administrator.js"></script>
 </body>
 </html>
