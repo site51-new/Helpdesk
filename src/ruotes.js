@@ -7,27 +7,27 @@ const appviewController = require('./controllers/appview.controller');
 const administradorController = require('./controllers/administrador.controller');
 
 router.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/index.html'));
+    res.sendFile(path.join(__dirname, '../docs/index.html'));
 });
 
 router.get('/signup.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/signup.html'));
+    res.sendFile(path.join(__dirname, '../docs/signup.html'));
 });
 
 router.get('/appview.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/appview.html'));
+    res.sendFile(path.join(__dirname, '../docs/appview.html'));
 });
 
 router.get('/administrator.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/administrator.html'));
+    res.sendFile(path.join(__dirname, '../docs/administrator.html'));
 });
 
 router.get('/helper.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/helper.html'));
+    res.sendFile(path.join(__dirname, '../docs/helper.html'));
 });
 
 router.get('/form.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/form.html'));
+    res.sendFile(path.join(__dirname, '../docs/form.html'));
 });
 
 router.post('/login', autenticacionController.login);
