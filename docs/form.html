@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Helpdesk - Registro de Incidencia</title>
-    <link rel="stylesheet" type="text/css" href="./public/css/form.css" />
+    <link rel="stylesheet" type="text/css" href="/css/form.css" />
     <link rel="icon" href="/img/IMAGEN_ESCUDO.png" type="image/x-icon" />
     <link rel="shortcut icon" href="/img/shieldimage.png" type="image/x-icon" />
 </head>
@@ -16,7 +16,7 @@
         <a href="appview.html">Volver a mi cuenta</a>
         <h1>REGISTRO DE INCIDENCIA</h1>
         <h3>Bienvenido, por favor completa el siguiente formulario para atender la incidencia técnica:</h3>
-        <form id="incidenciaForm">
+        <form id="incidenciaForm" novalidate>
             <div class="campo-solo">
                 <label for="email">Correo Electrónico:</label>
                 <input type="email" id="email" name="email" required />
@@ -58,10 +58,10 @@
                 <label for="categoria">Categoría a la que pertenece el tipo de dispositivo:</label>
                 <select id="categoria" name="categoria" required>
                     <option value="">(Hacer click)</option>
-                    <option value="EQUIPOS DE COMPUTO">EQUIPOS DE CÓMPUTO</option>
+                    <option value="EQUIPOS DE CÓMPUTO">EQUIPOS DE CÓMPUTO</option>
                     <option value="REDES">REDES</option>
                     <option value="RADIO ENLACES">RADIO ENLACES</option>
-                    <option value="CAMARAS DE VIGILANCIA">CÁMARAS DE VIGILANCIA</option>
+                    <option value="CÁMARAS DE VIGILANCIA">CÁMARAS DE VIGILANCIA</option>
                     <option value="DISPOSITIVOS DE ENTRADA/SALIDA">CATEGORÍA DE DISPOSITIVOS DE ENTRADA, SALIDA U OTROS (Consejos)</option>
                 </select>
             </div>
@@ -105,6 +105,7 @@
             </div>
         </form>
     </div>
-    <script src="./public/js/form.js"></script>
+
+    <script src="/js/form.js" defer></script>
 </body>
 </html>
