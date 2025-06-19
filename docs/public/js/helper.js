@@ -4,7 +4,7 @@ function mostrarPanel() {
     var panel = document.getElementById("panel-conversacion");
     panel.style.display = "block";
     panel.style.position = "absolute";
-    panel.style.top = "180px"; // Ajustado para que no aparezca muy abajo
+    panel.style.top = "120px"; // Ajustado para que no aparezca muy abajo
     panel.style.right = "0px";
     if (!iniciado) {
         mostrarOpciones();
