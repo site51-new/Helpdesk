@@ -7,7 +7,7 @@ const incidenciaController = require('./controllers/incidencia.controller');
 const appviewController = require('./controllers/appview.controller');
 const administradorController = require('./controllers/administrador.controller');
 
-// Vistas HTML
+// Vistas
 router.get('/', (req, res) => res.sendFile(path.join(__dirname, '../docs/index.html')));
 router.get('/signup.html', (req, res) => res.sendFile(path.join(__dirname, '../docs/signup.html')));
 router.get('/appview.html', (req, res) => res.sendFile(path.join(__dirname, '../docs/appview.html')));
@@ -16,8 +16,8 @@ router.get('/helper.html', (req, res) => res.sendFile(path.join(__dirname, '../d
 router.get('/form.html', (req, res) => res.sendFile(path.join(__dirname, '../docs/form.html')));
 
 // Autenticación
-router.post('/login', autenticacionController.login);
 router.post('/register', autenticacionController.register);
+router.post('/login', autenticacionController.login);
 router.get('/logout', autenticacionController.logout);
 
 // Incidencias
