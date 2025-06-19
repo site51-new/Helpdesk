@@ -123,4 +123,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function grab
+  function grabarFormulario() {
+    localStorage.setItem('incidencias', JSON.stringify(incidencias));
+    alert('✅ Cambios guardados correctamente.');
+    cargarIncidencias();
+  }
+
+  function cancelarCambios() {
+    if (!copiaOriginalIncidencias.length) return;
+    incidencias = JSON.parse(JSON.stringify(copiaOriginalIncidencias));
+    cargarIncidencias();
+  }
+
+  btnGrabar.addEventListener('click', grabarFormulario);
+  btnCancelar.addEventListener('click', cancelarCambios);
+  lugarFiltro.addEventListener('change', filtrarIncidencias);
+  estadoFiltro.addEventListener('change', filtrarIncidencias);
+
+  cargarIncidencias();
+
+  // Recargar si se crea una nueva incidencia
+  window.addEventListener('incidenciaCreada', cargarIncidencias);
+});
