@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Helpdesk - Iniciar sesión</title>
+
   <link rel="stylesheet" href="public/css/index.css" />
   <link rel="icon" href="public/img/shieldimage.png" type="image/x-icon" />
 </head>
@@ -16,22 +17,19 @@
     </div>
     <br />
     <form autocomplete="off">
-      <div style="display: flex; align-items: center; gap: 5px;">
-        <label for="usuario">Usuario-DNI:</label>
-        <input type="text" id="usuario" name="usuario" autocomplete="off" />
-      </div>
-      <br />
+      <label for="usuario" style="display: inline-block; width: auto; margin-right: 5px;">Usuario(DNI):</label>
+      <input type="text" id="usuario" name="usuario" autocomplete="off" style="display: inline-block;" />
+      <br /><br />
 
-      <div style="display: flex; align-items: center; gap: 5px;">
-        <label for="contrasena">Contraseña:</label>
-        <input
-          type="password"
-          id="contrasena"
-          name="contrasena"
-          placeholder="Ej. Usuariop5-Usuario del quinto piso"
-          autocomplete="new-password"
-        />
-      </div>
+      <label for="contrasena" style="display: inline-block; width: auto; margin-right: 5px;">Contraseña:</label>
+      <input
+        type="password"
+        id="contrasena"
+        name="contrasena"
+        placeholder="Ej. Usuariop5-Usuario del quinto piso"
+        autocomplete="new-password"
+        style="display: inline-block;"
+      />
       <br />
 
       <a href="signup.html" style="font-size: 12px; color: #666;">Crear nueva cuenta</a><br /><br />
@@ -40,6 +38,7 @@
       </div>
     </form>
   </div>
+
   <script src="public/js/index.js"></script>
 </body>
 </html>
