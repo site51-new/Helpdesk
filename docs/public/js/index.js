@@ -1,40 +1,34 @@
-document.getElementById('btnIniciarSesion').addEventListener('click', (e) => {
-    e.preventDefault();
+document.getElementById('btnIniciarSesion')
+        .addEventListener('click', iniciarSesion);
 
-    const usuario = document.getElementById('usuario').value.trim();
-    const contrasena = document.getElementById('contrasena').value.trim();
+function iniciarSesion(e) {
+  e.preventDefault();
 
-    if (!usuario || !contrasena) {
-        alert('Por favor, complete todos los campos.');
-        return;
-    }
+  const usuario = document.getElementById('usuario').value.trim();
+  const contrasena = document.getElementById('contrasena').value.trim();
 
-    const adminUser = 'administrador';
-    const adminPass = 'administradorp5';
+  if (!usuario || !contrasena) {
+    alert('Por favor, complete todos los campos.');
+    return;
+  }
 
-    if (usuario === adminUser && contrasena === adminPass) {
-        window.location.href = '/administrator.html';
-        return;
-    }
+  if (usuario === 'administrador' && contrasena === 'administradorp5') {
+    window.location.href = 'administrator.html';
+    return;
+  }
 
-    fetch('/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ usuario, contrasena }),
-    })
-        .then(async (response) => {
-            const data = await response.json();
-            if (response.ok) {
-                localStorage.setItem('token', data.token);
-                window.location.href = '/appview.html';
-            } else {
-                alert(data.mensaje || 'Credenciales inválidas');
-            }
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            alert('Ocurrió un error al intentar iniciar sesión');
-        });
-});
+  const users = JSON.parse(localStorage.getItem("users") || "[]");
+  const user = users.find(u => u.dni === usuario);
+
+  if (!user) {
+    alert('Usuario no encontrado.');
+    return;
+  }
+  if (user.contrasena !== contrasena) {
+    alert('Contraseña incorrecta.');
+    return;
+  }
+
+  localStorage.setItem('loggedUser', JSON.stringify(user));
+  window.location.href = 'appview.html';
+}
