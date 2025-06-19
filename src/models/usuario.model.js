@@ -3,7 +3,6 @@ const pool = require('../db');
 const Usuario = {
     async crearUsuario(usuario) {
         try {
-            // Insertar en tPersonal y obtener Id_Personal generado
             const resultPersonal = await pool.query(`
                 INSERT INTO "tPersonal" (correo, dni, "Id_Dependencia", usuario, password, "Nombres", apellidos)
                 VALUES ($1, $2, $3, $4, $5, $6, $7)
@@ -11,7 +10,7 @@ const Usuario = {
             `, [
                 usuario.correo,
                 usuario.dni,
-                usuario.Id_Dependencia || '1', // poner default o asegurarse que venga
+                usuario.Id_Dependencia || '1',
                 usuario.usuario,
                 usuario.password,
                 usuario.nombre,
@@ -20,14 +19,12 @@ const Usuario = {
 
             const idPersonal = resultPersonal.rows[0].Id_Personal;
 
-            // Insertar en tUsuarios solo con Id_Personal para herencia
             await pool.query(`
                 INSERT INTO "tUsuarios" ("Id_Personal")
                 VALUES ($1)
             `, [idPersonal]);
 
             return { Id_Personal: idPersonal };
-
         } catch (error) {
             console.error('Error al crear usuario:', error);
             throw new Error('No se pudo registrar el usuario. Intente nuevamente.');
@@ -36,12 +33,9 @@ const Usuario = {
 
     async existeUsuarioPorCorreoODni(correo, dni) {
         try {
-            // Buscar en tPersonal donde están correo y dni
-            const query = {
-                text: `SELECT 1 FROM "tPersonal" WHERE correo = $1 OR dni = $2 LIMIT 1`,
-                values: [correo, dni],
-            };
-            const result = await pool.query(query);
+            const result = await pool.query(`
+                SELECT 1 FROM "tPersonal" WHERE correo = $1 OR dni = $2 LIMIT 1
+            `, [correo, dni]);
             return result.rowCount > 0;
         } catch (error) {
             console.error('Error al verificar existencia de usuario:', error);
@@ -51,17 +45,12 @@ const Usuario = {
 
     async obtenerUsuario(id) {
         try {
-            // Traer datos combinados con JOIN entre tUsuarios y tPersonal
-            const query = {
-                text: `
-                    SELECT u."Id_Usuario", p.*
-                    FROM "tUsuarios" u
-                    JOIN "tPersonal" p ON u."Id_Personal" = p."Id_Personal"
-                    WHERE u."Id_Personal" = $1
-                `,
-                values: [id],
-            };
-            const result = await pool.query(query);
+            const result = await pool.query(`
+                SELECT u."Id_Usuario", p.*
+                FROM "tUsuarios" u
+                JOIN "tPersonal" p ON u."Id_Personal" = p."Id_Personal"
+                WHERE u."Id_Personal" = $1
+            `, [id]);
             return result.rows[0];
         } catch (error) {
             console.error('Error al obtener usuario por ID:', error);
@@ -71,17 +60,12 @@ const Usuario = {
 
     async obtenerUsuarioPorNombre(usuarioNombre) {
         try {
-            // Buscar por usuario en tPersonal y unir con tUsuarios
-            const query = {
-                text: `
-                    SELECT u."Id_Usuario", p.*
-                    FROM "tUsuarios" u
-                    JOIN "tPersonal" p ON u."Id_Personal" = p."Id_Personal"
-                    WHERE p.usuario = $1
-                `,
-                values: [usuarioNombre],
-            };
-            const result = await pool.query(query);
+            const result = await pool.query(`
+                SELECT u."Id_Usuario", p.*
+                FROM "tUsuarios" u
+                JOIN "tPersonal" p ON u."Id_Personal" = p."Id_Personal"
+                WHERE p.usuario = $1
+            `, [usuarioNombre]);
             return result.rows[0];
         } catch (error) {
             console.error('Error al obtener usuario por nombre:', error);
@@ -91,14 +75,11 @@ const Usuario = {
 
     async obtenerTodosLosUsuarios() {
         try {
-            const query = {
-                text: `
-                    SELECT u."Id_Usuario", p.*
-                    FROM "tUsuarios" u
-                    JOIN "tPersonal" p ON u."Id_Personal" = p."Id_Personal"
-                `,
-            };
-            const result = await pool.query(query);
+            const result = await pool.query(`
+                SELECT u."Id_Usuario", p.*
+                FROM "tUsuarios" u
+                JOIN "tPersonal" p ON u."Id_Personal" = p."Id_Personal"
+            `);
             return result.rows;
         } catch (error) {
             console.error('Error al obtener todos los usuarios:', error);
@@ -108,30 +89,25 @@ const Usuario = {
 
     async actualizarUsuario(id, usuario) {
         try {
-            // Actualizar en tPersonal porque ahí están los datos reales
-            const query = {
-                text: `
-                    UPDATE "tPersonal"
-                    SET usuario = $2,
-                        password = $3,
-                        "Nombres" = $4,
-                        apellidos = $5,
-                        dni = $6,
-                        correo = $7
-                    WHERE "Id_Personal" = $1
-                    RETURNING *
-                `,
-                values: [
-                    id,
-                    usuario.usuario,
-                    usuario.password,
-                    usuario.nombre,
-                    usuario.apellido,
-                    usuario.dni,
-                    usuario.correo,
-                ],
-            };
-            const result = await pool.query(query);
+            const result = await pool.query(`
+                UPDATE "tPersonal"
+                SET usuario = $2,
+                    password = $3,
+                    "Nombres" = $4,
+                    apellidos = $5,
+                    dni = $6,
+                    correo = $7
+                WHERE "Id_Personal" = $1
+                RETURNING *
+            `, [
+                id,
+                usuario.usuario,
+                usuario.password,
+                usuario.nombre,
+                usuario.apellido,
+                usuario.dni,
+                usuario.correo
+            ]);
             return result.rows[0];
         } catch (error) {
             console.error('Error al actualizar usuario:', error);
@@ -141,12 +117,9 @@ const Usuario = {
 
     async eliminarUsuario(id) {
         try {
-            // Borrar en tUsuarios (clave foránea) y en cascada en tPersonal si está configurado
-            const query = {
-                text: `DELETE FROM "tUsuarios" WHERE "Id_Personal" = $1`,
-                values: [id],
-            };
-            await pool.query(query);
+            await pool.query(`
+                DELETE FROM "tUsuarios" WHERE "Id_Personal" = $1
+            `, [id]);
         } catch (error) {
             console.error('Error al eliminar usuario:', error);
             throw new Error('Error al eliminar usuario.');
