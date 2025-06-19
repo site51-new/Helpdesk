@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const incidencia = {
-            Id_Dependencia: formulario['sede'] ? formulario['sede'].value : null,
+            Id_Dependencia: formulario['sede']?.value || null,
             categoria: formulario.categoria.value,
             tipo_dispositivo: formulario.tipo_dispositivo.value,
             marca: formulario.marca.value.trim(),
@@ -39,16 +39,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(incidencia)
             });
 
+            const contentType = response.headers.get('Content-Type') || '';
+            let data = null;
+
+            if (contentType.includes('application/json')) {
+                data = await response.json();
+            } else {
+                const text = await response.text();
+                data = { mensaje: text };
+            }
+
             if (!response.ok) {
-                const errorData = await response.json();
-                console.error('Detalles del error:', errorData);
-                throw new Error(errorData.mensaje + (errorData.detalles ? ' - ' + errorData.detalles : ''));
+                console.error('Detalles del error:', data);
+                throw new Error(data.mensaje || `Error ${response.status}`);
             }
 
             alert('✔️ Incidencia registrada correctamente.');
-
             formulario.reset();
-
             window.dispatchEvent(new CustomEvent('incidenciaCreada'));
 
         } catch (error) {
