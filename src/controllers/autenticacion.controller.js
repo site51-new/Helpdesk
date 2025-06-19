@@ -4,17 +4,19 @@ const bcrypt = require('bcrypt');
 
 exports.login = async (req, res) => {
     try {
-        const usuario = await Usuario.obtenerUsuarioPorNombre(req.body.usuario);
-        if (!usuario) {
-            return res.status(401).json({ mensaje: 'Credenciales inválidas' });
+        const { usuario, contrasena } = req.body;
+
+        const usuarioBD = await Usuario.obtenerUsuarioPorNombre(usuario);
+        if (!usuarioBD) {
+            return res.status(401).json({ mensaje: 'Usuario no registrado' });
         }
 
-        const isValidPassword = await bcrypt.compare(req.body.contrasena, usuario.password);
+        const isValidPassword = await bcrypt.compare(contrasena, usuarioBD.password);
         if (!isValidPassword) {
-            return res.status(401).json({ mensaje: 'Credenciales inválidas' });
+            return res.status(401).json({ mensaje: 'Contraseña incorrecta' });
         }
 
-        const token = jwt.sign({ id: usuario.Id_Personal }, process.env.SECRET_KEY, { expiresIn: '1h' });
+        const token = jwt.sign({ id: usuarioBD.Id_Personal }, process.env.SECRET_KEY, { expiresIn: '1h' });
         res.json({ token: `Bearer ${token}` });
     } catch (error) {
         console.error('Error en login:', error);
@@ -23,7 +25,6 @@ exports.login = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-    console.log('Registro de usuario iniciado');
     try {
         const { nombre, apellido, dni, correo, contrasena, Id_Dependencia } = req.body;
 
@@ -38,7 +39,9 @@ exports.register = async (req, res) => {
 
         const contrasenaRegex = new RegExp(`^${dni}p[1-9]$`);
         if (!contrasenaRegex.test(contrasena)) {
-            return res.status(400).json({ mensaje: 'La contraseña debe ser el DNI seguido de la letra "p" y un dígito del 1 al 9' });
+            return res.status(400).json({
+                mensaje: 'La contraseña debe ser el DNI seguido de la letra "p" y un dígito del 1 al 9'
+            });
         }
 
         const existe = await Usuario.existeUsuarioPorCorreoODni(correo, dni);
@@ -48,21 +51,19 @@ exports.register = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(contrasena, 10);
 
-        const usuario = {
-            usuario: dni,
+        const nuevoUsuario = {
+            usuario: dni, // DNI es el nombre de usuario
             password: hashedPassword,
             nombre,
             apellido,
             dni,
             correo,
-            Id_Dependencia: Id_Dependencia || '1'  // Puedes ajustar según la lógica de dependencia
+            Id_Dependencia: Id_Dependencia || '1'
         };
 
-        const nuevoUsuario = await Usuario.crearUsuario(usuario);
+        const resultado = await Usuario.crearUsuario(nuevoUsuario);
 
-        console.log('Usuario creado con éxito:', nuevoUsuario);
-        res.status(201).json({ mensaje: 'Usuario registrado con éxito' });
-
+        res.status(201).json({ mensaje: 'Usuario registrado con éxito', id: resultado.Id_Personal });
     } catch (error) {
         console.error('Error al registrar usuario:', error);
         res.status(500).json({ mensaje: 'Error al registrar usuario', error: error.message });
@@ -70,11 +71,7 @@ exports.register = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
-    try {
-        res.json({ mensaje: 'Sesión cerrada con éxito' });
-    } catch (error) {
-        res.status(500).json({ mensaje: 'Error al cerrar sesión' });
-    }
+    res.json({ mensaje: 'Sesión cerrada con éxito' });
 };
 
 exports.verificarToken = async (req, res, next) => {
