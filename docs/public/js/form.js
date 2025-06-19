@@ -1,66 +1,47 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const formulario = document.getElementById('incidenciaForm');
+  const formulario = document.getElementById('incidenciaForm');
+  const dialog = document.getElementById('successDialog');
+  const closeBtn = document.getElementById('closeDialog');
 
-    formulario.addEventListener('submit', async (e) => {
-        e.preventDefault();
+  closeBtn.addEventListener('click', () => dialog.close());
 
-        const comentarios = document.getElementById('comentarios').value.trim();
-        if (comentarios.includes('\n')) {
-            alert('La descripción corta del problema solo debe tener una línea.');
-            return;
-        }
+  formulario.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-        if (!formulario.checkValidity()) {
-            alert('Por favor, complete todos los campos requeridos correctamente.');
-            return;
-        }
+    if (!formulario.checkValidity()) {
+      alert('Por favor, complete todos los campos correctamente.');
+      return;
+    }
 
-        const incidencia = {
-            Id_Dependencia: formulario['sede']?.value || null,
-            categoria: formulario.categoria.value,
-            tipo_dispositivo: formulario.tipo_dispositivo.value,
-            marca: formulario.marca.value.trim(),
-            modelo: formulario.modelo.value.trim() || null,
-            glosa: comentarios,
-            tecnico_encargado: null,
-            estado_incidencia: "PENDIENTE",
-            fechayhora: new Date().toISOString(),
-            codigo_del_bien: formulario.codigo_bien.value.trim()
-        };
+    const comentarios = document.getElementById('comentarios').value.trim();
+    if (comentarios.includes('\n')) {
+      alert('La descripción debe tener una sola línea.');
+      return;
+    }
 
-        console.log('Datos que envío:', incidencia);
+    const incidencia = {
+      id: Date.now(),
+      Id_Dependencia: formulario.sede.value,
+      categoria: formulario.categoria.value,
+      tipo_dispositivo: formulario.tipo_dispositivo.value,
+      marca: formulario.marca.value.trim(),
+      modelo: formulario.modelo.value.trim(),
+      glosa: comentarios,
+      tecnico_encargado: null,
+      estado_incidencia: 'PENDIENTE',
+      fechayhora: new Date().toISOString(),
+      codigo_del_bien: formulario.codigo_bien.value.trim()
+    };
 
-        try {
-            const response = await fetch('/api/incidencias', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(incidencia)
-            });
+    // Guardar en LocalStorage
+    const almacenadas = JSON.parse(localStorage.getItem('incidencias')) || [];
+    almacenadas.push(incidencia);
+    localStorage.setItem('incidencias', JSON.stringify(almacenadas));
 
-            const contentType = response.headers.get('Content-Type') || '';
-            let data = null;
+    dialog.showModal();
+    formulario.reset();
 
-            if (contentType.includes('application/json')) {
-                data = await response.json();
-            } else {
-                const text = await response.text();
-                data = { mensaje: text };
-            }
-
-            if (!response.ok) {
-                console.error('Detalles del error:', data);
-                throw new Error(data.mensaje || `Error ${response.status}`);
-            }
-
-            alert('✔️ Incidencia registrada correctamente.');
-            formulario.reset();
-            window.dispatchEvent(new CustomEvent('incidenciaCreada'));
-
-        } catch (error) {
-            console.error('Error al enviar incidencia:', error);
-            alert(`Ocurrió un error al registrar la incidencia: ${error.message}`);
-        }
-    });
+    // Dispara evento global para que administrator.html escuche
+    window.dispatchEvent(new CustomEvent('incidenciaCreada'));
+  });
 });
