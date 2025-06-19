@@ -1,49 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bandeja de Entrada - Helpdesk</title>
-  <link rel="stylesheet" href="public/css/appview.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Helpdesk</title>
+
+    <!-- Enlace al CSS -->
+    <link rel="stylesheet" href="/css/appview.css" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/img/IMAGEN_ESCUDO.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="/img/IMAGEN_ESCUDO.png" type="image/x-icon" />
 </head>
 <body>
-  <div class="contenedor">
-    <h1>Bandeja de Entrada de Incidencias</h1>
-    <label for="dni">Ingrese su DNI para ver sus notificaciones:</label>
-    <input type="text" id="dni" placeholder="Ej. 12345678" maxlength="8" />
-    <button id="verBandeja">Ver Bandeja</button>
 
-    <div id="mensajes" class="bandeja">
-      <!-- Mensajes se mostrarán aquí -->
+    <!-- Botón de volver -->
+    <a href="/" class="back" title="Volver">
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 22.5L7.5 15M7.5 15L15 7.5M7.5 15H22.5"
+                  stroke="#1E88E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </a>
+
+    <!-- Imagen de la bandeja -->
+    <div class="imagen-container">
+        <img id="boton-imagen" src="/img/ICONO_BANDEJA%20DE%20ENTRADA.png" alt="Imagen de botón de asignación" />
     </div>
-  </div>
 
-  <script>
-    document.getElementById('verBandeja').addEventListener('click', () => {
-      const dni = document.getElementById('dni').value.trim();
-      if (!dni) {
-        alert('Por favor, ingrese su DNI');
-        return;
-      }
+    <!-- Video de fondo -->
+    <video autoplay loop muted id="fondo">
+        <source src="/video/page1video.mp4" type="video/mp4" />
+        Tu navegador no soporta el video.
+    </video>
 
-      const clave = 'bandeja_' + dni;
-      const mensajes = JSON.parse(localStorage.getItem(clave)) || [];
+    <!-- Mensajes -->
+    <div class="header-mensajes">
+        <p>MENSAJES</p>
+    </div>
 
-      const contenedor = document.getElementById('mensajes');
-      contenedor.innerHTML = '';
+    <!-- Título y subtítulo -->
+    <h1 class="titulo">Soporte Técnico</h1>
+    <p class="subtitulo">Explícanos tu problema.</p>
 
-      if (mensajes.length === 0) {
-        contenedor.innerHTML = '<p>No tienes mensajes en la bandeja.</p>';
-        return;
-      }
+    <!-- Botón de acceso al chatbot -->
+    <button id="botón-chatbot" onclick="window.location.href='helper.html'">Acceder al Chatbot</button>
 
-      mensajes.reverse().forEach(msg => {
-        const div = document.createElement('div');
-        div.classList.add('mensaje');
-        div.innerHTML = `<strong>${msg.fecha}:</strong> ${msg.mensaje}`;
-        contenedor.appendChild(div);
-      });
-    });
-  </script>
+    <!-- Panel de conversación -->
+    <div id="panel-conversacion" style="display: none;">
+        <div id="conversacion"></div>
+    </div>
+
+    <!-- Panel de mensajes -->
+    <div id="panel-mensaje">
+        <h2>Mensajes nuevos:</h2>
+        <p>- La incidencia del mouse está en estado Pendiente.</p>
+    </div>
+
+    <!-- Script JS -->
+    <script src="/js/appview.js"></script>
 </body>
 </html>
