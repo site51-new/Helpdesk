@@ -118,7 +118,7 @@ function responderOpcion(opcion) {
             agregarCajaTextoYBoton(respuesta => {
                 mostrarMensajeUsuario(respuesta);
                 if (respuesta === "1" || respuesta === "2") {
-                    mostrarMensajeBot(">>🔧 Puedes registrar tu incidencia aquí: <a href='https://visitante1204.github.io/Helpdesk/helper.html'>Formulario de Incidencia</a>");
+                    mostrarMensajeBot(">>🔧 Puedes registrar tu incidencia aquí: <a href='https://visitante1204.github.io/Helpdesk/form.html'>Formulario de Incidencia</a>");
                     eliminarEntradaAnterior();
                 } else {
                     mostrarMensajeBot("Por favor, ingresa una opción válida (1 o 2).");
@@ -136,7 +136,7 @@ function responderOpcion(opcion) {
                     agregarCajaTextoYBoton(respuesta2 => {
                         mostrarMensajeUsuario(respuesta2);
                         if (respuesta2 === "1") {
-                            mostrarMensajeBot(">>🔧 Aquí tienes el formulario para reportar el problema: <a href='https://visitante1204.github.io/Helpdesk/helper.html'>Formulario</a>");
+                            mostrarMensajeBot(">>🔧 Aquí tienes el formulario para reportar el problema: <a href='https://visitante1204.github.io/Helpdesk/form.html'>Formulario</a>");
                             eliminarEntradaAnterior();
                         } else if (respuesta2 === "2") {
                             mostrarMensajeBot(">>Haz clic cerca del ícono de sonido. Desconecta y vuelve a conectar. ¿Funcionó? (1.Sí / 2.No)");
@@ -146,7 +146,7 @@ function responderOpcion(opcion) {
                                     mostrarMensajeBot(">>Okay, ¡me alegra haber ayudado!");
                                     eliminarEntradaAnterior();
                                 } else if (respuesta3 === "2") {
-                                    mostrarMensajeBot(">>🔧 Llena este formulario para más soporte: <a href='https://visitante1204.github.io/Helpdesk/helper.html'>Formulario</a>");
+                                    mostrarMensajeBot(">>🔧 Llena este formulario para más soporte: <a href='https://visitante1204.github.io/Helpdesk/form.html'>Formulario</a>");
                                     eliminarEntradaAnterior();
                                 } else {
                                     mostrarMensajeBot("Por favor, ingresa una opción válida (1 o 2).");
@@ -159,7 +159,7 @@ function responderOpcion(opcion) {
                         }
                     });
                 } else if (respuesta === "2") {
-                    mostrarMensajeBot(">>🔧 Por favor llena el siguiente formulario para soporte: <a href='https://visitante1204.github.io/Helpdesk/helper.html'>Formulario</a>");
+                    mostrarMensajeBot(">>🔧 Por favor llena el siguiente formulario para soporte: <a href='https://visitante1204.github.io/Helpdesk/form.html'>Formulario</a>");
                     eliminarEntradaAnterior();
                 } else {
                     mostrarMensajeBot("Por favor, ingresa una opción válida (1 o 2).");
@@ -169,7 +169,7 @@ function responderOpcion(opcion) {
             break;
 
         case "3":
-            mostrarMensajeBot(">>🔧 Aquí tienes el formulario para registrar tu incidencia: <a href='https://visitante1204.github.io/Helpdesk/helper.html'>Formulario</a>");
+            mostrarMensajeBot(">>🔧 Aquí tienes el formulario para registrar tu incidencia: <a href='https://visitante1204.github.io/Helpdesk/form.html'>Formulario</a>");
             eliminarEntradaAnterior();
             break;
 
