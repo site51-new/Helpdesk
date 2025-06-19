@@ -5,16 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Helpdesk</title>
 
-    <!-- Enlace al CSS -->
     <link rel="stylesheet" href="public/css/appview.css" />
 
-    <!-- Favicon -->
     <link rel="icon" href="public/img/IMAGEN_ESCUDO.png" type="image/x-icon" />
     <link rel="shortcut icon" href="public/img/IMAGEN_ESCUDO.png" type="image/x-icon" />
 </head>
 <body>
 
-    <!-- Botón de volver -->
     <a href="/" class="back" title="Volver">
         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 22.5L7.5 15M7.5 15L15 7.5M7.5 15H22.5"
@@ -22,41 +19,33 @@
         </svg>
     </a>
 
-    <!-- Imagen de la bandeja -->
     <div class="imagen-container">
         <img id="boton-imagen" src="public/img/ICONO_BANDEJA%20DE%20ENTRADA.png" alt="Imagen de botón de asignación" />
     </div>
 
-    <!-- Video de fondo -->
     <video autoplay loop muted id="fondo">
         <source src="public/video/page1video.mp4" type="video/mp4" />
         Tu navegador no soporta el video.
     </video>
 
-    <!-- Mensajes -->
     <div class="header-mensajes">
         <p>MENSAJES</p>
     </div>
 
-    <!-- Título y subtítulo -->
     <h1 class="titulo">Soporte Técnico</h1>
     <p class="subtitulo">Explícanos tu problema.</p>
 
-    <!-- Botón de acceso al chatbot -->
     <button id="botón-chatbot" onclick="window.location.href='helper.html'">Acceder al Chatbot</button>
 
-    <!-- Panel de conversación -->
     <div id="panel-conversacion" style="display: none;">
         <div id="conversacion"></div>
     </div>
 
-    <!-- Panel de mensajes -->
     <div id="panel-mensaje">
         <h2>Mensajes nuevos:</h2>
         <p>- La incidencia del mouse está en estado Pendiente.</p>
     </div>
 
-    <!-- Script JS -->
     <script src="public/js/appview.js"></script>
 </body>
 </html>
