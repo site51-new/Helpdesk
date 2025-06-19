@@ -1,99 +1,123 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica, Arial, sans-serif;
+    background-color: #fff;
+}
 
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Helvetica,Arial,sans-serif;
-        background-color: #fff; 
-    }
-    
-    #fondo {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        object-fit: cover;
-        z-index: -1;
-        opacity: 0.5; 
-    }
+#fondo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.5;
+}
 
-    .contenedor {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        width: 80%;
-    }
+.contenedor-chat {
+    position: absolute;
+    top: 200px;
+    left: 180px;
+    color: #333;
+}
 
-    .contenedor-botón {
-        text-align: center;
-        margin-right: 20px;
-    }
+.contenedor-chat h1 {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
 
-    #botón-chatbot {
-        padding: 20px 40px;
-        font-size: 24px;
-        font-weight: bold;
-        color: #fff; 
-        background-color: #3cb840; 
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-    }
+.contenedor-chat p {
+    font-size: 20px;
+    width: 400px;
+    margin-bottom: 20px;
+}
 
-    #botón-chatbot:hover {
-        background-color: #3cb840; 
-    }
+#boton-chatbot {
+    padding: 15px 30px;
+    font-size: 20px;
+    background-color: #3cb840;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-    #panel-conversacion {
-        background-color: #d4d8d4; 
-        padding: 20px;
-        border: 1px rgba(99, 114, 153, 0.322);
-        border-radius: 10px;
-        font-size: 18.2px;
-        width: 45%;
-        position: absolute;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        box-shadow: inset 0px 1.5px 3px rgba(17, 18, 18, 0.968);
-    }
+#boton-chatbot:hover {
+    background-color: #36a836;
+}
 
-    #conversacion {
-        padding: 20px;
-        border: 2px solid #a6a2a25a;
-        border-radius: 10px;
-        overflow-y: auto;
-        max-height: 280px;
-        box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.2);
-    }
+#panel-conversacion {
+    display: none;
+    position: absolute;
+    top: 500px;
+    right: 0;
+    background-color: #d4d8d4;
+    padding: 10px;
+    border: 1px solid rgba(99, 114, 153, 0.322);
+    border-radius: 10px;
+    font-size: 18.2px;
+    width: 45%;
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.2);
+}
 
-    #entrada {
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        width: 70%;
-    }
+.cerrar {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
 
-    #enviar {
-        padding: 10px;
-        border: none;
-        border-radius: 10px;
-        background-color: #3cb840;
-        color: #fff;
-        cursor: pointer;
-    }
+#cerrar-conversacion {
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
 
-    #enviar:hover {
-        background-color: #3cb840;
-    }
+#cerrar-conversacion:hover {
+    background-color: #ff0000;
+    color: #fff;
+}
 
-    .back {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-    }
+#conversacion {
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 10px;
+    border: 2px solid #a6a2a25a;
+    border-radius: 10px;
+    box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.entrada {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 70%;
+    margin-top: 10px;
+}
+
+.enviar {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #3cb840;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.enviar:hover {
+    background-color: #36a836;
+}
+
+.back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
