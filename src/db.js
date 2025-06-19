@@ -8,18 +8,18 @@ const pool = new Pool({
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
     port: process.env.DB_PORT,
-    ssl: false, // Desactivar SSL en entorno local (ajustar si se sube a producción)
+    ssl: false, // Desactivar SSL en entorno local
 });
 
-// Verificación opcional al iniciar
+// Verificación opcional al iniciar el servidor
 pool.connect()
     .then(client => {
         console.log('✅ Conexión a la base de datos PostgreSQL exitosa');
-        client.release(); // Liberar el cliente después de la verificación
+        client.release();
     })
     .catch(err => {
         console.error('❌ Error al conectar a la base de datos:', err.message);
-        process.exit(1); // Finalizar el proceso si no hay conexión
+        process.exit(1);
     });
 
 module.exports = pool;
