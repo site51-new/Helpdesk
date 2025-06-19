@@ -36,16 +36,16 @@ function registrarUsuario(e) {
         return;
     }
 
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    let usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
 
-    if (users.some(u => u.dni === dni || u.correo === correo)) {
-        mensajeBoton.textContent = "Este DNI o correo ya están registrados.";
+    if (usuarios.find(u => u.dni === dni || u.correo === correo)) {
+        mensajeBoton.textContent = "El DNI o correo ya están registrados.";
         return;
     }
 
     const nuevoUsuario = { nombre, apellido, dni, correo, contrasena };
-    users.push(nuevoUsuario);
-    localStorage.setItem("users", JSON.stringify(users));
+    usuarios.push(nuevoUsuario);
+    localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
     mensajeBoton.style.color = "green";
     mensajeBoton.textContent = "Cuenta creada con éxito.";
