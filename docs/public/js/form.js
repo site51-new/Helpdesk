@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    const dniUsuario = formulario.dni.value.trim();
+
     const incidencia = {
       id: Date.now(),
       Id_Dependencia: formulario.sede.value,
@@ -30,7 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
       tecnico_encargado: null,
       estado_incidencia: 'PENDIENTE',
       fechayhora: new Date().toISOString(),
-      codigo_del_bien: formulario.codigo_bien.value.trim()
+      codigo_del_bien: formulario.codigo_bien.value.trim(),
+      dni_usuario: dniUsuario
     };
 
     // Guardar en LocalStorage
@@ -38,10 +41,21 @@ document.addEventListener('DOMContentLoaded', () => {
     almacenadas.push(incidencia);
     localStorage.setItem('incidencias', JSON.stringify(almacenadas));
 
+    // Crear mensaje de notificación para el usuario
+    const mensaje = {
+      mensaje: `📬 La incidencia del dispositivo de ${incidencia.categoria} se encuentra en estado ${incidencia.estado_incidencia}.`,
+      fecha: new Date().toLocaleString('es-PE')
+    };
+
+    const claveBandeja = 'bandeja_' + dniUsuario;
+    const bandeja = JSON.parse(localStorage.getItem(claveBandeja)) || [];
+    bandeja.push(mensaje);
+    localStorage.setItem(claveBandeja, JSON.stringify(bandeja));
+
     dialog.showModal();
     formulario.reset();
 
-    // Dispara evento global para que administrator.html escuche
+    // Evento para recargar administrador
     window.dispatchEvent(new CustomEvent('incidenciaCreada'));
   });
 });
