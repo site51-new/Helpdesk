@@ -1,25 +1,25 @@
-const { Pool } = require('pg');
 require('dotenv').config();
+const { Pool } = require('pg');
 
-if (!process.env.DB_USER || !process.env.DB_PASSWORD || !process.env.DB_NAME || !process.env.DB_HOST) {
-    console.error("❌ Faltan variables de entorno necesarias para la conexión a la base de datos.");
-    process.exit(1); 
-}
-
+// Crear un pool de conexiones usando las variables del .env
 const pool = new Pool({
     user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: Number(process.env.DB_PORT) || 5433,
+    port: process.env.DB_PORT,
+    ssl: false, // Desactivar SSL en entorno local (ajustar si se sube a producción)
 });
 
-pool.on('connect', () => {
-    console.log('✅ Conexión exitosa a la base de datos PostgreSQL');
-});
-
-pool.on('error', (err) => {
-    console.error('❌ Error en la conexión a PostgreSQL:', err);
-});
+// Verificación opcional al iniciar
+pool.connect()
+    .then(client => {
+        console.log('✅ Conexión a la base de datos PostgreSQL exitosa');
+        client.release(); // Liberar el cliente después de la verificación
+    })
+    .catch(err => {
+        console.error('❌ Error al conectar a la base de datos:', err.message);
+        process.exit(1); // Finalizar el proceso si no hay conexión
+    });
 
 module.exports = pool;
