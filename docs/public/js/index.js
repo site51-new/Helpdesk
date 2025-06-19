@@ -9,19 +9,20 @@ document.getElementById('btnIniciarSesion').addEventListener('click', (e) => {
         return;
     }
 
+    // Acceso administrador
     if (usuario === 'administrador' && contrasena === 'administradorp5') {
         window.location.href = 'administrator.html';
         return;
     }
 
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    const user = users.find(u => u.dni === usuario && u.contrasena === contrasena);
+    const usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
 
-    if (!user) {
-        alert("Credenciales inválidas o usuario no registrado.");
-        return;
+    const user = usuarios.find(u => u.dni === usuario && u.contrasena === contrasena);
+
+    if (user) {
+        localStorage.setItem("usuarioActivo", JSON.stringify(user));
+        window.location.href = 'appview.html';
+    } else {
+        alert('Credenciales inválidas. Verifique su DNI y contraseña.');
     }
-
-    localStorage.setItem("loggedUser", JSON.stringify(user));
-    window.location.href = 'appview.html';
 });
