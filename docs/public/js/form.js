@@ -1,61 +1,59 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const formulario = document.getElementById('incidenciaForm');
-  const dialog = document.getElementById('successDialog');
-  const closeBtn = document.getElementById('closeDialog');
+    const formulario = document.getElementById('incidenciaForm');
 
-  closeBtn.addEventListener('click', () => dialog.close());
+    formulario.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-  formulario.addEventListener('submit', async (e) => {
-    e.preventDefault();
+        const comentarios = document.getElementById('comentarios').value.trim();
+        if (comentarios.includes('\n')) {
+            alert('La descripción corta del problema solo debe tener una línea.');
+            return;
+        }
 
-    if (!formulario.checkValidity()) {
-      alert('Por favor, complete todos los campos correctamente.');
-      return;
-    }
+        if (!formulario.checkValidity()) {
+            alert('Por favor, complete todos los campos requeridos correctamente.');
+            return;
+        }
 
-    const comentarios = document.getElementById('comentarios').value.trim();
-    if (comentarios.includes('\n')) {
-      alert('La descripción debe tener una sola línea.');
-      return;
-    }
+        const incidencia = {
+            Id_Dependencia: formulario['sede'] ? formulario['sede'].value : null,
+            categoria: formulario.categoria.value,
+            tipo_dispositivo: formulario.tipo_dispositivo.value,
+            marca: formulario.marca.value.trim(),
+            modelo: formulario.modelo.value.trim() || null,
+            glosa: comentarios,
+            tecnico_encargado: null,
+            estado_incidencia: "PENDIENTE",
+            fechayhora: new Date().toISOString(),
+            codigo_del_bien: formulario.codigo_bien.value.trim()
+        };
 
-    const dniUsuario = formulario.dni.value.trim();
+        console.log('Datos que envío:', incidencia);
 
-    const incidencia = {
-      id: Date.now(),
-      Id_Dependencia: formulario.sede.value,
-      categoria: formulario.categoria.value,
-      tipo_dispositivo: formulario.tipo_dispositivo.value,
-      marca: formulario.marca.value.trim(),
-      modelo: formulario.modelo.value.trim(),
-      glosa: comentarios,
-      tecnico_encargado: null,
-      estado_incidencia: 'PENDIENTE',
-      fechayhora: new Date().toISOString(),
-      codigo_del_bien: formulario.codigo_bien.value.trim(),
-      dni_usuario: dniUsuario
-    };
+        try {
+            const response = await fetch('/api/incidencias', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(incidencia)
+            });
 
-    // Guardar en LocalStorage
-    const almacenadas = JSON.parse(localStorage.getItem('incidencias')) || [];
-    almacenadas.push(incidencia);
-    localStorage.setItem('incidencias', JSON.stringify(almacenadas));
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error('Detalles del error:', errorData);
+                throw new Error(errorData.mensaje + (errorData.detalles ? ' - ' + errorData.detalles : ''));
+            }
 
-    // Crear mensaje de notificación para el usuario
-    const mensaje = {
-      mensaje: `📬 La incidencia del dispositivo de ${incidencia.categoria} se encuentra en estado ${incidencia.estado_incidencia}.`,
-      fecha: new Date().toLocaleString('es-PE')
-    };
+            alert('✔️ Incidencia registrada correctamente.');
 
-    const claveBandeja = 'bandeja_' + dniUsuario;
-    const bandeja = JSON.parse(localStorage.getItem(claveBandeja)) || [];
-    bandeja.push(mensaje);
-    localStorage.setItem(claveBandeja, JSON.stringify(bandeja));
+            formulario.reset();
 
-    dialog.showModal();
-    formulario.reset();
+            window.dispatchEvent(new CustomEvent('incidenciaCreada'));
 
-    // Evento para recargar administrador
-    window.dispatchEvent(new CustomEvent('incidenciaCreada'));
-  });
+        } catch (error) {
+            console.error('Error al enviar incidencia:', error);
+            alert(`Ocurrió un error al registrar la incidencia: ${error.message}`);
+        }
+    });
 });
