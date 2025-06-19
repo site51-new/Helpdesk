@@ -1,50 +1,63 @@
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("btnRegistrar")
-          .addEventListener("click", registrarUsuario);
-});
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Helpdesk - Regístrate</title>
 
-function registrarUsuario(e) {
-  e.preventDefault();
+  <!-- ✅ Rutas relativas correctas para GitHub Pages -->
+  <link rel="stylesheet" type="text/css" href="public/css/signup.css" />
+  <link rel="icon" href="public/img/shieldimage.png" type="image/x-icon" />
+</head>
+<body>
+  <div class="contenedor-plomo">
+    <!-- ✅ Ruta de regreso a index.html -->
+    <a href="index.html" class="back">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 22.5L7.5 15M7.5 15L15 7.5M7.5 15H22.5"
+          stroke="#1E88E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </a>
 
-  const nombre = document.getElementById("nombre").value.trim();
-  const apellido = document.getElementById("apellido").value.trim();
-  const dni = document.getElementById("dni").value.trim();
-  const correo = document.getElementById("correo").value.trim();
-  const contrasena = document.getElementById("contrasena").value.trim();
-  const confirmarContrasena = document.getElementById("confirmar_contrasena").value.trim();
-  const mensajeBoton = document.getElementById("mensaje-boton");
+    <div class="panel-blanco">
+      <div class="imagen-container">
+        <img src="public/img/IMAGEN_ESCUDO_M.P.P.png" alt="Imagen de inicio de sesión" />
+      </div>
 
-  mensajeBoton.textContent = "";
-  mensajeBoton.style.color = "red";
+      <div class="form-container">
+        <h2 class="titulo-centos">REGISTRARSE</h2>
+        <div class="formulario">
+          <div class="columna-izquierda">
+            <label for="nombre">Nombres:</label>
+            <input type="text" id="nombre" name="nombre"><br><br>
 
-  if (!nombre || !apellido || !dni || !correo || !contrasena || !confirmarContrasena) {
-    mensajeBoton.textContent = "Por favor, complete todos los campos.";
-    return;
-  }
-  if (!/^\d{8}$/.test(dni)) {
-    mensajeBoton.textContent = "El DNI debe tener exactamente 8 dígitos.";
-    return;
-  }
-  if (!new RegExp(`^${dni}p[1-9]$`).test(contrasena)) {
-    mensajeBoton.textContent = "La contraseña debe ser el DNI seguido de 'p' y piso (1‑9).";
-    return;
-  }
-  if (contrasena !== confirmarContrasena) {
-    mensajeBoton.textContent = "Las contraseñas no coinciden.";
-    return;
-  }
+            <label for="dni">DNI:</label>
+            <input type="text" id="dni" name="dni"><br><br>
 
-  const users = JSON.parse(localStorage.getItem("users") || "[]");
-  if (users.some(u => u.dni === dni || u.correo === correo)) {
-    mensajeBoton.textContent = "Este DNI o correo ya están registrados.";
-    return;
-  }
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" name="contrasena"><br><br>
+          </div>
+          <div class="columna-derecha">
+            <label for="apellido">Apellidos:</label>
+            <input type="text" id="apellido" name="apellido"><br><br>
 
-  users.push({ nombre, apellido, dni, correo, contrasena });
-  localStorage.setItem("users", JSON.stringify(users));
+            <label for="correo">Correo electrónico:</label>
+            <input type="email" id="correo" name="correo"><br><br>
 
-  mensajeBoton.style.color = "green";
-  mensajeBoton.textContent = "Cuenta creada con éxito.";
-  ["nombre", "apellido", "dni", "correo", "contrasena", "confirmar_contrasena"]
-    .forEach(id => document.getElementById(id).value = "");
-}
+            <label for="confirmar_contrasena">Confirmar contraseña:</label>
+            <input type="password" id="confirmar_contrasena" name="confirmar_contrasena"><br><br>
+          </div>
+        </div>
+
+        <div class="button-container">
+          <button id="btnRegistrar">Crear cuenta</button>
+          <p id="mensaje-boton"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ Script con ruta relativa para GitHub Pages -->
+  <script src="public/js/signup.js"></script>
+</body>
+</html>
