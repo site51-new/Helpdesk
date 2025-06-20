@@ -10,7 +10,7 @@ document.getElementById('btnIniciarSesion').addEventListener('click', (e) => {
     }
 
     // Acceso administrador
-    if (usuario === 'administrador' && contrasena === 'administradorp5') {
+    if (usuario === 'administrator' && contrasena === 'administratorp5') {
         window.location.href = 'administrator.html';
         return;
     }
