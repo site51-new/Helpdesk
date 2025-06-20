@@ -52,7 +52,7 @@ body {
 #panel-conversacion {
     display: none;
     position: absolute;
-    top: 500px;
+    top: 200px;
     right: 0;
     background-color: #d4d8d4;
     padding: 10px;
