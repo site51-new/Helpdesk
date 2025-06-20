@@ -86,7 +86,7 @@ body {
     max-height: 300px;
     overflow-y: auto;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
-    z-index: 1000;
+    z-index: 100;
     display: none;
     width: 300px;
 }
