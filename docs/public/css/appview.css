@@ -97,11 +97,10 @@ body {
     left: 20px;
 }
 
-/* NUEVO: tamaño más grande para el ícono de bandeja de entrada */
 #boton-imagen {
     width: 60px;
     height: 60px;
-    border-radius: 12px; /* si quieres bordes redondeados */
+    border-radius: 12px;
     object-fit: contain;
-    cursor: pointer; /* si quieres que parezca clickable */
+    cursor: pointer;
 }
