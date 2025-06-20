@@ -4,13 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Helpdesk - Registro de Incidencia</title>
-    <link rel="stylesheet" type="text/css" href="public/css/form.css" />
-    <link rel="icon" href="public/img/IMAGEN_ESCUDO.png" type="image/x-icon" />
-    <link rel="shortcut icon" href="public/img/shieldimage.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="/css/form.css" />
+    <link rel="icon" href="/img/IMAGEN_ESCUDO.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="/img/shieldimage.png" type="image/x-icon" />
 </head>
 <body>
     <video autoplay loop muted id="fondo">
-        <source src="public/video/formvideo.mp4" type="video/mp4" />
+        <source src="/video/formvideo.mp4" type="video/mp4" />
     </video>
     <div class="form-container">
         <a href="appview.html">Volver a mi cuenta</a>
@@ -60,24 +60,15 @@
                     <option value="">(Hacer click)</option>
                     <option value="EQUIPOS DE CÓMPUTO">EQUIPOS DE CÓMPUTO</option>
                     <option value="REDES">REDES</option>
-                    <option value="RADIO ENLACES">RADIO ENLACES</option>
+                    <option value="RADIOENLACES">RADIOENLACES</option>
                     <option value="CÁMARAS DE VIGILANCIA">CÁMARAS DE VIGILANCIA</option>
-                    <option value="DISPOSITIVOS DE ENTRADA/SALIDA">CATEGORÍA DE DISPOSITIVOS DE ENTRADA, SALIDA U OTROS (Consejos)</option>
+                    <option value="DISPOSITIVOS DE ENTRADA/SALIDA">DISPOSITIVOS DE ENTRADA, SALIDA U OTROS (Consejos)</option>
                 </select>
             </div>
             <div class="campo-pareja">
                 <div>
                     <label for="tipo_dispositivo">Tipo de Dispositivo Averiado:</label>
                     <select id="tipo_dispositivo" name="tipo_dispositivo" required>
-                        <option value="">(Hacer click)</option>
-                        <option value="TECLADO">TECLADO</option>
-                        <option value="MONITOR">MONITOR</option>
-                        <option value="CPU">CPU</option>
-                        <option value="IMPRESORA">IMPRESORA</option>
-                        <option value="SWITCH">SWITCH</option>
-                        <option value="ROUTER">ROUTER</option>
-                        <option value="CAMARA">CÁMARA</option>
-                        <option value="OTROS">DISPOSITIVOS DE ENTRADA, SALIDA U OTROS (Consejos)</option>
                     </select>
                 </div>
                 <div>
@@ -106,6 +97,6 @@
         </form>
     </div>
 
-    <script src="public/js/form.js" defer></script>
+    <script src="/js/form.js" defer></script>
 </body>
 </html>
