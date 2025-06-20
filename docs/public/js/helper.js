@@ -3,7 +3,7 @@ function mostrarPanel() {
     var panel = document.getElementById("panel-conversacion");
     panel.style.display = "block";
     panel.style.position = "absolute";
-    panel.style.top = "180px";
+    panel.style.top = "200px";
     panel.style.right = "0px";
     if (!iniciado) {
         mostrarOpciones();
