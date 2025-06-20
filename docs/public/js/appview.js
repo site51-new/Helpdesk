@@ -10,7 +10,7 @@ function actualizarBandeja(incidencia) {
     const dispositivo = incidencia.tipo_dispositivo || 'dispositivo';
     const estado = incidencia.estado_incidencia || 'Pendiente';
     mensajeIncidencia.innerHTML = `<p>La incidencia del <strong>${dispositivo}</strong> se encuentra en estado <strong>${estado}</strong>.</p>`;
-    botonImagen.src = 'public/img/ICONO_BANDEJA LLENA.png';
+    botonImagen.src = '/img/ICONO_BANDEJA LLENA.png';
 }
 
 async function crearIncidencia(data) {
@@ -39,7 +39,7 @@ async function checkIncidenciaUsuario() {
         } else {
             // Sin incidencias, bandeja vacía
             mensajeIncidencia.innerHTML = '';
-            botonImagen.src = 'public/img/ICONO_BANDEJA DE ENTRADA.png';
+            botonImagen.src = '/img/ICONO_BANDEJA DE ENTRADA.png';
         }
     } catch (e) {
         console.error(e);
