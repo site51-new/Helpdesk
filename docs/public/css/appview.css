@@ -38,9 +38,9 @@ body {
     z-index: 1;
 }
 
-#botón-chatbot:hover {
-    background-color: #3cb840;
-}
+    #botón-chatbot:hover {
+        background-color: #3cb840;
+    }
 
 .back {
     position: absolute;
