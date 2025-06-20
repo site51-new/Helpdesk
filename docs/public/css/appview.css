@@ -15,14 +15,6 @@ body {
     z-index: 0;
 }
 
-.imagen-container {
-    position: absolute;
-    top: 60px;
-    right: 90px;
-    display: block;
-    text-align: right;
-}
-
 #botón-chatbot {
     position: absolute;
     top: 440px;
@@ -38,9 +30,9 @@ body {
     z-index: 1;
 }
 
-    #botón-chatbot:hover {
-        background-color: #3cb840;
-    }
+#botón-chatbot:hover {
+    background-color: #3cb840;
+}
 
 .back {
     position: absolute;
@@ -57,6 +49,14 @@ body {
     font-weight: bold;
     font-size: 18px;
     font-family: 'Times New Roman', serif;
+    text-align: center;
+    z-index: 2;
+}
+
+.header-mensajes img {
+    margin-top: 5px;
+    width: 40px;
+    height: auto;
 }
 
 .titulo {
