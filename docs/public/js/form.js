@@ -1,4 +1,4 @@
-// IMPORTANTE: reemplaza esta URL con la de tu backend publicado
+// Reemplaza esta URL por la del servidor real cuando esté desplegado
 const BASE_URL = 'https://mi-api-helpdesk.onrender.com';
 
 const opcionesPorCategoria = {
@@ -97,7 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
             tecnico_encargado: null,
             estado_incidencia: "PENDIENTE",
             fechayhora: new Date().toISOString(),
-            codigo_del_bien: formulario.codigo_bien.value.trim()
+            codigo_del_bien: formulario.codigo_bien.value.trim(),
+            usuario_id: 1 // ⚠️ Hasta que tengas login, usa un ID temporal
         };
 
         console.log('Datos que envío:', incidencia);
@@ -122,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             formulario.reset();
             actualizarTipoDispositivo();
-
             window.dispatchEvent(new CustomEvent('incidenciaCreada'));
 
         } catch (error) {
