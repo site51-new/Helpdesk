@@ -1,4 +1,5 @@
-const BASE_URL = 'http://localhost:3000';
+// IMPORTANTE: reemplaza esta URL con la de tu backend publicado
+const BASE_URL = 'https://mi-api-helpdesk.onrender.com';
 
 const opcionesPorCategoria = {
     "EQUIPOS DE CÓMPUTO": [
@@ -54,7 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 optionElem.disabled = false;
                 optionElem.style.paddingLeft = '0';
             } else {
-
                 optionElem.disabled = true;
                 optionElem.style.paddingLeft = '20px';
             }
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('✔️ Incidencia registrada correctamente.');
 
             formulario.reset();
-            actualizarTipoDispositivo();  
+            actualizarTipoDispositivo();
 
             window.dispatchEvent(new CustomEvent('incidenciaCreada'));
 
