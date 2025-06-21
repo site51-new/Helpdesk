@@ -6,7 +6,7 @@ const Incidencia = {
             const query = {
                 text: `INSERT INTO tIncidencias (Id_Dependencia, categoria, tipo_dispositivo, marca, modelo, glosa, tecnico_encargado, estado_incidencia, fechayhora, codigo_del_bien, usuario_id)
          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *`,
-                values: [
+               values: [
                     incidencia.Id_Dependencia,
                     incidencia.categoria,
                     incidencia.tipo_dispositivo,
@@ -17,7 +17,7 @@ const Incidencia = {
                     incidencia.estado_incidencia || 'Pendiente',
                     incidencia.fechayhora,
                     incidencia.codigo_del_bien,
-                    incidencia.usuario_id 
+                    incidencia.usuario_id || null // Cambiado: permite null
                 ],
             };
             const result = await pool.query(query);
