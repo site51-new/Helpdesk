@@ -1,3 +1,4 @@
+
 const Incidencia = require('../models/incidencia.model');
 
 exports.crearIncidencia = async (req, res) => {
@@ -5,7 +6,8 @@ exports.crearIncidencia = async (req, res) => {
         const incidencia = await Incidencia.crearIncidencia(req.body);
         res.status(201).json(incidencia);
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al crear incidencia' });
+        console.error('Error en crearIncidencia:', error); // Nuevo log
+        res.status(500).json({ mensaje: 'Error al crear incidencia', error: error.message });
     }
 };
 
