@@ -37,7 +37,6 @@ async function checkIncidenciaUsuario() {
         if (incidencias.length > 0) {
             actualizarBandeja(incidencias[0]);
         } else {
-            // Sin incidencias, bandeja vacía
             mensajeIncidencia.innerHTML = '';
             botonImagen.src = '/img/ICONO_BANDEJA DE ENTRADA.png';
         }
