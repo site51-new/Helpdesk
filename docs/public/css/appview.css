@@ -15,14 +15,6 @@ body {
     z-index: 0;
 }
 
-.imagen-container {
-    position: absolute;
-    top: 60px;
-    right: 90px;
-    display: block;
-    text-align: right;
-}
-
 #botón-chatbot {
     position: absolute;
     top: 440px;
