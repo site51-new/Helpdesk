@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function actualizarTipoDispositivo() {
         const categoriaSeleccionada = categoriaSelect.value;
-        tipoDispositivoSelect.innerHTML = ''; 
+        tipoDispositivoSelect.innerHTML = '';
 
         const opcionesHabilitadas = opcionesPorCategoria[categoriaSeleccionada] || [];
 
@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 optionElem.disabled = false;
                 optionElem.style.paddingLeft = '0';
             } else {
-
                 optionElem.disabled = true;
                 optionElem.style.paddingLeft = '20px';
             }
@@ -100,6 +99,12 @@ document.addEventListener('DOMContentLoaded', () => {
             codigo_del_bien: formulario.codigo_bien.value.trim()
         };
 
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('No estás autenticado. Por favor, inicia sesión.');
+            return;
+        }
+
         console.log('Datos que envío:', incidencia);
 
         try {
@@ -107,8 +112,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': token
                 },
-                credentials: 'include',
                 body: JSON.stringify(incidencia)
             });
 
@@ -121,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('✔️ Incidencia registrada correctamente.');
 
             formulario.reset();
-            actualizarTipoDispositivo();  
+            actualizarTipoDispositivo();
 
             window.dispatchEvent(new CustomEvent('incidenciaCreada'));
 

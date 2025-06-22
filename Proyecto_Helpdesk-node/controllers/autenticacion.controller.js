@@ -1,21 +1,28 @@
 const Usuario = require('../models/usuario.model');
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs'); 
 
 exports.login = async (req, res) => {
     try {
-        const usuario = await Usuario.obtenerUsuarioPorNombre(req.body.usuario);
-        if (!usuario) {
-            return res.status(401).json({ mensaje: 'Credenciales inválidas' });
+        const { usuario, contrasena } = req.body;
+        const usuarioEncontrado = await Usuario.obtenerUsuarioPorNombre(usuario);
+
+        if (!usuarioEncontrado) {
+            return res.status(401).json({ mensaje: 'Credenciales inválidas (usuario)' });
         }
 
-        const isValidPassword = await bcrypt.compare(req.body.contrasena, usuario.password);
-        if (!isValidPassword) {
-            return res.status(401).json({ mensaje: 'Credenciales inválidas' });
+        const passwordValido = await bcrypt.compare(contrasena, usuarioEncontrado.password);
+        if (!passwordValido) {
+            return res.status(401).json({ mensaje: 'Credenciales inválidas (contraseña)' });
         }
 
-        const token = jwt.sign({ id: usuario.Id_Personal }, process.env.SECRET_KEY, { expiresIn: '1h' });
-        res.json({ token: `Bearer ${token}` });
+        const token = jwt.sign(
+            { usuarioId: usuarioEncontrado.Id_Personal },
+            process.env.SECRET_KEY,
+            { expiresIn: '8h' }
+        );
+
+        res.status(200).json({ token }); 
     } catch (error) {
         console.error('Error en login:', error);
         res.status(500).json({ mensaje: 'Error al autenticar usuario' });
@@ -23,7 +30,6 @@ exports.login = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
-    console.log('Registro de usuario iniciado');
     try {
         const { nombre, apellido, dni, correo, contrasena, Id_Dependencia } = req.body;
 
@@ -48,19 +54,17 @@ exports.register = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(contrasena, 10);
 
-        const usuario = {
+        const nuevoUsuario = {
             usuario: dni,
             password: hashedPassword,
             nombre,
             apellido,
             dni,
             correo,
-            Id_Dependencia: Id_Dependencia || '1'  // Puedes ajustar según la lógica de dependencia
+            Id_Dependencia: Id_Dependencia || '1'
         };
 
-        const nuevoUsuario = await Usuario.crearUsuario(usuario);
-
-        console.log('Usuario creado con éxito:', nuevoUsuario);
+        await Usuario.crearUsuario(nuevoUsuario);
         res.status(201).json({ mensaje: 'Usuario registrado con éxito' });
 
     } catch (error) {
@@ -69,25 +73,24 @@ exports.register = async (req, res) => {
     }
 };
 
-exports.logout = async (req, res) => {
-    try {
-        res.json({ mensaje: 'Sesión cerrada con éxito' });
-    } catch (error) {
-        res.status(500).json({ mensaje: 'Error al cerrar sesión' });
-    }
+exports.logout = (req, res) => {
+    res.status(200).json({ mensaje: 'Sesión cerrada con éxito' });
 };
 
 exports.verificarToken = async (req, res, next) => {
     try {
-        const token = req.header('Authorization');
-        if (!token) {
-            return res.status(401).json({ mensaje: 'Token no proporcionado' });
+        const authHeader = req.header('Authorization');
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({ mensaje: 'Token no proporcionado o inválido' });
         }
-        const tokenWithoutBearer = token.replace('Bearer ', '');
-        const decoded = jwt.verify(tokenWithoutBearer, process.env.SECRET_KEY);
-        req.usuario = await Usuario.obtenerUsuario(decoded.id);
+
+        const token = authHeader.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.SECRET_KEY);
+
+        req.usuario = await Usuario.obtenerUsuario(decoded.usuarioId);
         next();
     } catch (error) {
-        res.status(401).json({ mensaje: 'Token inválido' });
+        console.error('Error en verificación de token:', error);
+        res.status(401).json({ mensaje: 'Token inválido o expirado' });
     }
 };
