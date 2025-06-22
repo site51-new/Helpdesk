@@ -1,30 +1,36 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Helpdesk</title>
-    <link rel="stylesheet" href="public/css/appview.css" />
-    <link rel="icon" href="public/img/IMAGEN_ESCUDO.png" type="image/x-icon" />
-    <link rel="shortcut icon" href="public/img/IMAGEN_ESCUDO.png" type="image/x-icon" />
-</head>
-<body>
 
-    <a href="/" class="back" title="Volver">
-        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 22.5L7.5 15M7.5 15L15 7.5M7.5 15H22.5"
-                  stroke="#1E88E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-    </a>
-    <video autoplay loop muted id="fondo">
-        <source src="public/video/page1video.mp4" type="video/mp4" />
-        Tu navegador no soporta el video.
-    </video>
+const mensajeIncidencia = document.getElementById('mensaje-incidencia');
 
-    <h1 class="titulo">Soporte Técnico</h1>
-    <p class="subtitulo">Explícanos tu problema.</p>
+async function crearIncidencia(data) {
+    try {
+        const resp = await fetch('/api/incidencias', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        });
+        if (!resp.ok) throw new Error('Error al crear incidencia');
 
-    <button id="botón-chatbot" onclick="window.location.href='helper.html'">Acceder al Chatbot</button>
-    <script src="public/js/appview.js"></script>
-</body>
-</html>
+        const incidenciaCreada = await resp.json();
+        actualizarBandeja(incidenciaCreada);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function checkIncidenciaUsuario() {
+    try {
+        const resp = await fetch('/api/mis-incidencias');
+        if (!resp.ok) return;
+        const incidencias = await resp.json();
+        if (incidencias.length > 0) {
+            actualizarBandeja(incidencias[0]);
+        } else {
+            mensajeIncidencia.innerHTML = '';
+            botonImagen.src = '/img/ICONO_BANDEJA DE ENTRADA.png';
+        }
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', checkIncidenciaUsuario);
