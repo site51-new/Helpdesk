@@ -1,0 +1,23 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# VS Code settings
+.vscode/
+.vs/
+
+# Environment variables
+.env
+
+# Sistema operativo (Windows)
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Archivos temporales
+*.tmp
+*.temp
