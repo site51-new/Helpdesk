@@ -1,6 +1,10 @@
 const jwt = require('jsonwebtoken');
 
 exports.verificarToken = (req, res, next) => {
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(204);
+    }
+
     const header = req.headers['authorization'];
     if (!header) return res.status(401).json({ mensaje: 'No token proporcionado' });
 
@@ -14,7 +18,6 @@ exports.verificarToken = (req, res, next) => {
         req.usuarioId = payload.id || payload.usuarioId;
         next();
     } catch (error) {
-        console.error('Error verificando token:', error);
         res.status(401).json({ mensaje: 'Token inválido o expirado' });
     }
 };

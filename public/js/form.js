@@ -1,4 +1,4 @@
-﻿const BASE_URL = 'https://helpdesk-backend-e6xc.onrender.com';
+﻿const BASE_URL = 'https://mi-api-helpdesk.onrender.com'; 
 
 const opcionesPorCategoria = {
     "EQUIPOS DE CÓMPUTO": [
@@ -38,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const formulario = document.getElementById('incidenciaForm');
     const categoriaSelect = document.getElementById('categoria');
     const tipoDispositivoSelect = document.getElementById('tipo_dispositivo');
-    const mensajeError = document.getElementById('mensaje-error'); 
+    const mensajeError = document.getElementById('mensaje-error');
+
     function actualizarTipoDispositivo() {
         const categoriaSeleccionada = categoriaSelect.value;
         tipoDispositivoSelect.innerHTML = '';
@@ -71,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     formulario.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        mensajeError.textContent = ''; 
+        mensajeError.textContent = '';
 
         const comentarios = document.getElementById('comentarios').value.trim();
         if (comentarios.includes('\n')) {
@@ -132,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 mensajeError.textContent = `Error al registrar incidencia: ${error.message}`;
                 mensajeError.style.color = 'red';
             }
-         
         }
     });
 });

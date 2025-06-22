@@ -1,4 +1,4 @@
-document.getElementById('btnIniciarSesion').addEventListener('click', (e) => {
+ï»¿document.getElementById('btnIniciarSesion').addEventListener('click', (e) => {
     e.preventDefault();
 
     const usuario = document.getElementById('usuario').value.trim();
@@ -17,7 +17,7 @@ document.getElementById('btnIniciarSesion').addEventListener('click', (e) => {
         return;
     }
 
-    fetch('/login', {
+    fetch('https://mi-api-helpdesk.onrender.com/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -30,11 +30,11 @@ document.getElementById('btnIniciarSesion').addEventListener('click', (e) => {
                 localStorage.setItem('token', data.token);
                 window.location.href = '/appview.html';
             } else {
-                alert(data.mensaje || 'Credenciales inválidas');
+                alert(data.mensaje || 'Credenciales invÃ¡lidas');
             }
         })
         .catch((error) => {
             console.error('Error:', error);
-            alert('Ocurrió un error al intentar iniciar sesión');
+            alert('OcurriÃ³ un error al intentar iniciar sesiÃ³n');
         });
 });
