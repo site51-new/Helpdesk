@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const corsOptions = {
-    origin: 'http://localhost:3000', 
+    origin: 'https://visitante1204.github.io', 
     credentials: true,
 };
 app.use(cors(corsOptions));

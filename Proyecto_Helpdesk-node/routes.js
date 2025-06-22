@@ -31,7 +31,7 @@ router.post('/register', autenticacionController.register);
 router.get('/logout', autenticacionController.logout);
 
 router.get('/api/incidencias', incidenciaController.listarIncidencias);
-router.post('/api/incidencias', appviewController.crearIncidencia);  // <-- Usamos appviewController para que use sesión
+router.post('/api/incidencias', appviewController.crearIncidencia); 
 
 router.put('/api/incidencias/:id', administradorController.actualizarIncidencia);
 
