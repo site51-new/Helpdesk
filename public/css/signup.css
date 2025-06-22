@@ -1,0 +1,95 @@
+
+    body {
+        font-family: 'Times New Roman', Times, serif, sans-serif;
+        background-color: #e6e6e6;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 95vh;
+    }
+
+    .contenedor-plomo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        background-color: #e6e6e6;  
+    }
+
+    .panel-blanco {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 400px;
+    }
+
+    .imagen-container {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    .imagen-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .form-container {
+        padding: 20px;
+        text-align: center;
+        zoom: 100%;
+    }
+
+    .titulo-centrado {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .formulario {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .columna-izquierda {
+        width: 45%;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+    .columna-derecha {
+        width: 45%;
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 10%;
+    }
+
+    .button-container {
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .button-container button {
+        width: 100%;
+        padding: 10px;
+        background-color: #0ba94dc8;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .back {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }

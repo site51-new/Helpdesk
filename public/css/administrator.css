@@ -1,0 +1,126 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f8fc;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+
+.back {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #1E88E5;
+    text-decoration: none;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.titulo-centrado {
+    text-align: center;
+    color: #1976d2;
+}
+
+.subtitulo {
+    text-align: center;
+    color: #555;
+}
+
+#main-container {
+    display: flex;
+    gap: 20px;
+}
+
+#tablaContainer {
+    flex: 1;
+}
+
+#divFiltro {
+    width: 250px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+    #divFiltro h2 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: #1976d2;
+    }
+
+    #divFiltro label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    #divFiltro select {
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 6px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+#tablaIncidencias {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+    #tablaIncidencias th, #tablaIncidencias td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+        font-size: 14px;
+    }
+
+    #tablaIncidencias th {
+        background-color: #1976d2;
+        color: white;
+    }
+
+.select-tecnico {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 4px;
+    font-size: 13px;
+}
+
+.select-estado {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 4px;
+    font-size: 13px;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.btn {
+    background-color: #1976d2;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+    .btn.cancelar {
+        background-color: #b71c1c;
+    }
+
+    .btn:hover {
+        background-color: #1565c0;
+    }
+
+    .btn.cancelar:hover {
+        background-color: #7f0000;
+    }
