@@ -32,10 +32,9 @@ router.post('/register', autenticacionController.register);
 router.get('/logout', autenticacionController.logout);
 
 router.get('/api/incidencias', verificarToken, incidenciaController.listarIncidencias);
-router.post('/api/incidencias', verificarToken, appviewController.crearIncidencia);
+router.post('/api/incidencias', verificarToken, incidenciaController.crearIncidencia);
 
-router.put('/api/incidencias/:id', verificarToken, administradorController.actualizarIncidencia);
-
-router.get('/api/mis-incidencias', verificarToken, appviewController.obtenerIncidenciasPorUsuario);
+router.put('/api/incidencias/:id', verificarToken, incidenciaController.actualizarIncidencia);
+router.get('/api/mis-incidencias', verificarToken, incidenciaController.obtenerIncidenciasPorUsuario);
 
 module.exports = router;

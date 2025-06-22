@@ -5,6 +5,7 @@ const Incidencia = {
     async crearIncidencia(incidencia) {
         try {
             const nuevaIncidenciaId = uuidv4();
+
             const query = {
                 text: `INSERT INTO "tIncidencias" (
                     "Id_Incidencia", "Id_Dependencia", categoria, tipo_dispositivo, marca, modelo,
@@ -25,6 +26,7 @@ const Incidencia = {
                     incidencia.codigo_del_bien
                 ],
             };
+
             const result = await pool.query(query);
             return result.rows[0];
         } catch (error) {
@@ -49,9 +51,10 @@ const Incidencia = {
 
     async obtenerTodasLasIncidencias() {
         try {
-            const result = await pool.query({
+            const query = {
                 text: `SELECT * FROM "tIncidencias" ORDER BY fechayhora DESC`,
-            });
+            };
+            const result = await pool.query(query);
             return result.rows;
         } catch (error) {
             console.error("Error al obtener todas las incidencias:", error.message);
@@ -63,18 +66,18 @@ const Incidencia = {
         try {
             const query = {
                 text: `UPDATE "tIncidencias"
-                    SET "Id_Dependencia" = $1,
-                        categoria = $2,
-                        tipo_dispositivo = $3,
-                        marca = $4,
-                        modelo = $5,
-                        glosa = $6,
-                        tecnico_encargado = $7,
-                        estado_incidencia = $8,
-                        fechayhora = $9,
-                        codigo_del_bien = $10
-                    WHERE "Id_Incidencia" = $11
-                    RETURNING *`,
+                SET "Id_Dependencia" = $1,
+                    categoria = $2,
+                    tipo_dispositivo = $3,
+                    marca = $4,
+                    modelo = $5,
+                    glosa = $6,
+                    tecnico_encargado = $7,
+                    estado_incidencia = $8,
+                    fechayhora = $9,
+                    codigo_del_bien = $10
+                WHERE "Id_Incidencia" = $11
+                RETURNING *`,
                 values: [
                     incidencia.Id_Dependencia,
                     incidencia.categoria,
@@ -99,10 +102,11 @@ const Incidencia = {
 
     async eliminarIncidencia(id) {
         try {
-            await pool.query({
+            const query = {
                 text: `DELETE FROM "tIncidencias" WHERE "Id_Incidencia" = $1`,
                 values: [id],
-            });
+            };
+            await pool.query(query);
         } catch (error) {
             console.error("Error al eliminar incidencia:", error.message);
             throw error;
@@ -111,10 +115,11 @@ const Incidencia = {
 
     async obtenerIncidenciasPorUsuario(idUsuario) {
         try {
-            const result = await pool.query({
+            const query = {
                 text: `SELECT * FROM "tIncidencias" WHERE "Id_Dependencia" = $1 ORDER BY fechayhora DESC`,
                 values: [idUsuario],
-            });
+            };
+            const result = await pool.query(query);
             return result.rows;
         } catch (error) {
             console.error('Error al obtener incidencias por usuario:', error.message);
