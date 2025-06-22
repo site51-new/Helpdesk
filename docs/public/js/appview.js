@@ -1,48 +1,50 @@
-const botonImagen = document.getElementById('boton-imagen');
-const panelMensaje = document.getElementById('panel-mensaje');
-const mensajeIncidencia = document.getElementById('mensaje-incidencia');
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Helpdesk</title>
+    <link rel="stylesheet" href="public/css/appview.css" />
+    <link rel="icon" href="public/img/IMAGEN_ESCUDO.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="public/img/IMAGEN_ESCUDO.png" type="image/x-icon" />
+</head>
+<body>
 
-botonImagen.addEventListener('click', () => {
-    panelMensaje.style.display = panelMensaje.style.display === 'block' ? 'none' : 'block';
-});
+    <a href="/" class="back" title="Volver">
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 22.5L7.5 15M7.5 15L15 7.5M7.5 15H22.5"
+                  stroke="#1E88E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </a>
 
-function actualizarBandeja(incidencia) {
-    const dispositivo = incidencia.tipo_dispositivo || 'dispositivo';
-    const estado = incidencia.estado_incidencia || 'Pendiente';
-    mensajeIncidencia.innerHTML = `<p>La incidencia del <strong>${dispositivo}</strong> se encuentra en estado <strong>${estado}</strong>.</p>`;
-    botonImagen.src = 'public/img/ICONO_BANDEJA LLENA.png';
-}
+    <!-- Eliminado: imagen-container -->
 
-async function crearIncidencia(data) {
-    try {
-        const resp = await fetch('/api/incidencias', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-        });
-        if (!resp.ok) throw new Error('Error al crear incidencia');
+    <video autoplay loop muted id="fondo">
+        <source src="public/video/page1video.mp4" type="video/mp4" />
+        Tu navegador no soporta el video.
+    </video>
 
-        const incidenciaCreada = await resp.json();
-        actualizarBandeja(incidenciaCreada);
-    } catch (error) {
-        console.error(error);
-    }
-}
+    <div class="header-mensajes">
+        <p>MENSAJES</p>
+    </div>
 
-async function checkIncidenciaUsuario() {
-    try {
-        const resp = await fetch('/api/mis-incidencias');
-        if (!resp.ok) return;
-        const incidencias = await resp.json();
-        if (incidencias.length > 0) {
-            actualizarBandeja(incidencias[0]);
-        } else {
-            mensajeIncidencia.innerHTML = '';
-            botonImagen.src = 'public/img/ICONO_BANDEJA DE ENTRADA.png';
-        }
-    } catch (e) {
-        console.error(e);
-    }
-}
+    <h1 class="titulo">Soporte Técnico</h1>
+    <p class="subtitulo">Explícanos tu problema.</p>
 
-document.addEventListener('DOMContentLoaded', checkIncidenciaUsuario);
+    <button id="botón-chatbot" onclick="window.location.href='helper.html'">Acceder al Chatbot</button>
+
+    <div id="panel-conversacion" style="display: none;">
+        <div id="conversacion"></div>
+    </div>
+
+    <!-- Mostramos el panel de mensajes siempre por ahora -->
+    <div id="panel-mensaje">
+        <h2>Mensajes nuevos:</h2>
+        <div id="mensaje-incidencia">
+            <p>No hay incidencias aún.</p>
+        </div>
+    </div>
+
+    <script src="public/js/appview.js"></script>
+</body>
+</html>
