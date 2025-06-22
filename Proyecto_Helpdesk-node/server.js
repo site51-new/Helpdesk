@@ -3,10 +3,23 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
-const cors = require('cors'); 
+const cors = require('cors');
 const router = require('./routes');
 
 const app = express();
+
+const corsOptions = {
+    origin: 'https://visitante1204.github.io', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    optionsSuccessStatus: 204
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); 
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
     secret: process.env.SESSION_SECRET || 'mi-secreto-123',
@@ -17,25 +30,16 @@ app.use(session({
     }
 }));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-const corsOptions = {
-    origin: 'https://visitante1204.github.io', 
-    credentials: true,
-};
-app.use(cors(corsOptions));
-
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(router);
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-    console.log(`Servidor iniciado en puerto ${port}`);
-});
-
 app.use((err, req, res, next) => {
     console.error('Error inesperado:', err);
     res.status(500).json({ mensaje: 'Error inesperado en el servidor' });
+});
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log(`Servidor iniciado en puerto ${port}`);
 });
