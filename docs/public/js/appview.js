@@ -16,9 +16,6 @@
                   stroke="#1E88E5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     </a>
-
-    <!-- Eliminado: imagen-container -->
-
     <video autoplay loop muted id="fondo">
         <source src="public/video/page1video.mp4" type="video/mp4" />
         Tu navegador no soporta el video.
@@ -28,11 +25,6 @@
     <p class="subtitulo">Explícanos tu problema.</p>
 
     <button id="botón-chatbot" onclick="window.location.href='helper.html'">Acceder al Chatbot</button>
-
-    <div id="panel-conversacion" style="display: none;">
-        <div id="conversacion"></div>
-    </div>
-
     <script src="public/js/appview.js"></script>
 </body>
 </html>
