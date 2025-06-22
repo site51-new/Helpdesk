@@ -18,6 +18,6 @@ exports.verificarToken = (req, res, next) => {
         req.usuarioId = payload.id || payload.usuarioId;
         next();
     } catch (error) {
-        res.status(401).json({ mensaje: 'Token inválido o expirado' });
+        return res.status(401).json({ mensaje: 'Token inválido o expirado' });
     }
 };
