@@ -4,23 +4,22 @@ const incidenciaController = {
     async listarIncidencias(req, res) {
         try {
             const incidenciasRaw = await Incidencia.obtenerTodasLasIncidencias();
-
             const incidencias = incidenciasRaw.map(inc => ({
-                id_incidencia: inc.Id_Incidencia || inc.id_incidencia || inc.id || inc.Id || null,
-                Id_incidencia: inc.Id_Incidencia || inc.id_incidencia || inc.id || inc.Id || null,
-                Id_Dependencia: inc.Id_Dependencia || inc.Id_dependencia || inc.id_dependencia || inc.sede || '',
-                fechayhora: inc.fechayhora || inc.fecha || inc.fecha_hora || inc.created_at || '',
+                id_incidencia: inc.Id_Incidencia,
+                Id_incidencia: inc.Id_Incidencia,
+                Id_Dependencia: inc.Id_Dependencia,
+                fechayhora: inc.fechayhora,
                 categoria: inc.categoria || '',
                 glosa: inc.glosa || '',
                 tecnico_encargado: inc.tecnico_encargado || '',
-                estado_incidencia: inc.estado_incidencia || inc.estado || 'Pendiente',
+                estado_incidencia: inc.estado_incidencia || 'Pendiente',
                 tipo_dispositivo: inc.tipo_dispositivo || '',
                 marca: inc.marca || '',
                 modelo: inc.modelo || '',
                 codigo_del_bien: inc.codigo_del_bien || ''
             }));
 
-            res.json(incidencias);
+            res.status(200).json(incidencias);
         } catch (error) {
             console.error('Error al listar incidencias:', error);
             res.status(500).json({ mensaje: 'Error al obtener incidencias', detalles: error.message });
@@ -31,26 +30,12 @@ const incidenciaController = {
         try {
             const incidencia = req.body;
 
-            if (!incidencia.Id_Dependencia && !incidencia.Id_dependencia && !incidencia.id_dependencia) {
+            if (!incidencia.Id_Dependencia) {
                 return res.status(400).json({ mensaje: 'Falta el campo obligatorio Id_Dependencia' });
             }
-            if (!incidencia.categoria) {
-                return res.status(400).json({ mensaje: 'Falta el campo obligatorio categoría' });
-            }
-            if (!incidencia.tipo_dispositivo) {
-                return res.status(400).json({ mensaje: 'Falta el campo obligatorio tipo_dispositivo' });
-            }
-            if (!incidencia.marca) {
-                return res.status(400).json({ mensaje: 'Falta el campo obligatorio marca' });
-            }
-            if (!incidencia.glosa) {
-                return res.status(400).json({ mensaje: 'Falta el campo obligatorio glosa' });
-            }
-            if (!incidencia.fechayhora) {
-                return res.status(400).json({ mensaje: 'Falta el campo obligatorio fechayhora' });
-            }
-            if (!incidencia.codigo_del_bien) {
-                return res.status(400).json({ mensaje: 'Falta el campo obligatorio codigo_del_bien' });
+            if (!incidencia.categoria || !incidencia.tipo_dispositivo || !incidencia.marca ||
+                !incidencia.glosa || !incidencia.fechayhora || !incidencia.codigo_del_bien) {
+                return res.status(400).json({ mensaje: 'Faltan campos obligatorios' });
             }
 
             const nuevaIncidencia = await Incidencia.crearIncidencia(incidencia);
@@ -62,8 +47,7 @@ const incidenciaController = {
             console.error('Error al crear incidencia:', error);
             res.status(500).json({
                 mensaje: 'Error al crear incidencia',
-                detalles: error.message,
-                stack: error.stack
+                detalles: error.message
             });
         }
     },
@@ -73,10 +57,12 @@ const incidenciaController = {
             const id = req.params.id;
             const incidencia = req.body;
             const incidenciaActualizada = await Incidencia.actualizarIncidencia(id, incidencia);
+
             if (!incidenciaActualizada) {
                 return res.status(404).json({ mensaje: 'Incidencia no encontrada' });
             }
-            res.json({
+
+            res.status(200).json({
                 mensaje: 'Incidencia actualizada correctamente',
                 incidencia: incidenciaActualizada
             });
