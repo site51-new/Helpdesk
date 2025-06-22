@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const formulario = document.getElementById('incidenciaForm');
     const categoriaSelect = document.getElementById('categoria');
     const tipoDispositivoSelect = document.getElementById('tipo_dispositivo');
-
+    const mensajeError = document.getElementById('mensaje-error'); 
     function actualizarTipoDispositivo() {
         const categoriaSeleccionada = categoriaSelect.value;
         tipoDispositivoSelect.innerHTML = '';
@@ -61,11 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const primeraHabilitada = opcionesHabilitadas[0];
-        if (primeraHabilitada) {
-            tipoDispositivoSelect.value = primeraHabilitada.value;
-        } else {
-            tipoDispositivoSelect.value = '';
-        }
+        tipoDispositivoSelect.value = primeraHabilitada ? primeraHabilitada.value : '';
     }
 
     actualizarTipoDispositivo();
@@ -74,6 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     formulario.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        mensajeError.textContent = ''; 
 
         const comentarios = document.getElementById('comentarios').value.trim();
         if (comentarios.includes('\n')) {
@@ -105,8 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        console.log('Datos que envío:', incidencia);
-
         try {
             const response = await fetch(`${BASE_URL}/api/incidencias`, {
                 method: 'POST',
@@ -132,7 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Error al enviar incidencia:', error);
-            alert(`Ocurrió un error al registrar la incidencia: ${error.message}`);
+            if (mensajeError) {
+                mensajeError.textContent = `Error al registrar incidencia: ${error.message}`;
+                mensajeError.style.color = 'red';
+            }
+         
         }
     });
 });
