@@ -1,4 +1,4 @@
-﻿const BASE_URL = 'http://localhost:3000';
+﻿const BASE_URL = 'https://helpdesk-backend-e6xc.onrender.com';
 
 const opcionesPorCategoria = {
     "EQUIPOS DE CÓMPUTO": [
