@@ -8,7 +8,7 @@ const router = require('./routes');
 const app = express();
 
 const corsOptions = {
-    origin: 'https://visitante1204.github.io', 
+    origin: 'https://visitante1204.github.io',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
@@ -31,4 +31,6 @@ app.use((err, req, res, next) => {
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Servidor iniciado en puerto ${port}`));
+app.listen(port, () => {
+    console.log(`Servidor iniciado en puerto ${port}`);
+});
