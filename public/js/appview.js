@@ -1,5 +1,4 @@
-const botonImagen = document.getElementById('boton-imagen');
-const panelMensaje = document.getElementById('panel-mensaje');
+
 const mensajeIncidencia = document.getElementById('mensaje-incidencia');
 
 botonImagen.addEventListener('click', () => {
