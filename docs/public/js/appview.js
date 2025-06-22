@@ -24,10 +24,6 @@
         Tu navegador no soporta el video.
     </video>
 
-    <div class="header-mensajes">
-        <p>MENSAJES</p>
-    </div>
-
     <h1 class="titulo">Soporte Técnico</h1>
     <p class="subtitulo">Explícanos tu problema.</p>
 
@@ -35,14 +31,6 @@
 
     <div id="panel-conversacion" style="display: none;">
         <div id="conversacion"></div>
-    </div>
-
-    <!-- Mostramos el panel de mensajes siempre por ahora -->
-    <div id="panel-mensaje">
-        <h2>Mensajes nuevos:</h2>
-        <div id="mensaje-incidencia">
-            <p>No hay incidencias aún.</p>
-        </div>
     </div>
 
     <script src="public/js/appview.js"></script>
