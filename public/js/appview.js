@@ -6,13 +6,6 @@ botonImagen.addEventListener('click', () => {
     panelMensaje.style.display = panelMensaje.style.display === 'block' ? 'none' : 'block';
 });
 
-function actualizarBandeja(incidencia) {
-    const dispositivo = incidencia.tipo_dispositivo || 'dispositivo';
-    const estado = incidencia.estado_incidencia || 'Pendiente';
-    mensajeIncidencia.innerHTML = `<p>La incidencia del <strong>${dispositivo}</strong> se encuentra en estado <strong>${estado}</strong>.</p>`;
-    botonImagen.src = '/img/ICONO_BANDEJA LLENA.png';
-}
-
 async function crearIncidencia(data) {
     try {
         const resp = await fetch('/api/incidencias', {
