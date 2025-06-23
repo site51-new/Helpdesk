@@ -28,6 +28,13 @@ app.use((req, res, next) => {
 
 app.use('/', router);
 
+app._router.stack.forEach(layer => {
+    if (layer.route) {
+        console.log(`🚀 Ruta cargada: ${Object.keys(layer.route.methods).join(',').toUpperCase()} ${layer.route.path}`);
+    }
+});
+
+
 app.use((req, res) => {
     res.status(404).json({ mensaje: 'Ruta no encontrada' });
 });
