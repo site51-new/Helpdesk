@@ -16,15 +16,4 @@ router.post('/register', autenticacionController.register);
 router.post('/login', autenticacionController.login);
 router.get('/logout', autenticacionController.logout);
 
-router.get('/api/incidencias', appviewController.obtenerIncidencias);
-router.post('/api/incidencias', appviewController.crearIncidencia);
-
-console.log('--- Rutas cargadas (temporal) ---');
-router.stack.forEach(layer => {
-    if (layer.route) {
-        console.log(Object.keys(layer.route.methods).join(',').toUpperCase(), layer.route.path);
-    }
-});
-console.log('--- Fin rutas ---');
-
 module.exports = router;
