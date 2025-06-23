@@ -13,7 +13,7 @@ app.use(cors({
 app.options('/api/incidencias/*', cors());
 
 app.use(express.json());
-app.use(express.static('public'));
+//app.use(express.static('public'));
 
 app.use('/', routes);
 
