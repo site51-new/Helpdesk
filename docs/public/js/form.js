@@ -66,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     actualizarTipoDispositivo();
-
     categoriaSelect.addEventListener('change', actualizarTipoDispositivo);
 
     formulario.addEventListener('submit', async (e) => {
@@ -75,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         mensajeError.textContent = '';
         mensajeError.style.color = 'black';
 
-        const comentarios = document.getElementById('comentarios').value.trim();
+        const comentarios = formulario['comentarios'].value.trim();
         if (comentarios.includes('\n')) {
             mensajeError.textContent = 'La descripción corta del problema solo debe tener una línea.';
             mensajeError.style.color = 'red';
@@ -90,15 +89,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const incidencia = {
             Id_Dependencia: formulario['sede'] ? formulario['sede'].value : null,
-            categoria: formulario.categoria.value,
-            tipo_dispositivo: formulario.tipo_dispositivo.value,
-            marca: formulario.marca.value.trim(),
-            modelo: formulario.modelo.value.trim() || null,
+            categoria: categoriaSelect.value,
+            tipo_dispositivo: tipoDispositivoSelect.value,
+            marca: formulario['marca'].value.trim(),
+            modelo: formulario['modelo'].value.trim() || null,
             glosa: comentarios,
             tecnico_encargado: null,
             estado_incidencia: "PENDIENTE",
             fechayhora: new Date().toISOString(),
-            codigo_del_bien: formulario.codigo_bien.value.trim()
+            codigo_del_bien: formulario['codigo_bien'].value.trim()
         };
 
         const token = localStorage.getItem('token');

@@ -40,6 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const tipoDispositivoSelect = document.getElementById('tipo_dispositivo');
     const mensajeError = document.getElementById('mensaje-error');
 
+    if (!formulario || !categoriaSelect || !tipoDispositivoSelect || !mensajeError) {
+        console.error('Uno o más elementos del formulario no se encontraron en el DOM.');
+        return;
+    }
+
     function actualizarTipoDispositivo() {
         const categoriaSeleccionada = categoriaSelect.value;
         tipoDispositivoSelect.innerHTML = '';
@@ -68,13 +73,13 @@ document.addEventListener('DOMContentLoaded', () => {
     actualizarTipoDispositivo();
     categoriaSelect.addEventListener('change', actualizarTipoDispositivo);
 
-    formulario.addEventListener('submit', async (e) => {
+    formulario.addEventListener('submit', (e) => {
         e.preventDefault();
 
         mensajeError.textContent = '';
         mensajeError.style.color = 'black';
 
-        const comentarios = document.getElementById('comentarios').value.trim();
+        const comentarios = formulario['comentarios'] ? formulario['comentarios'].value.trim() : '';
         if (comentarios.includes('\n')) {
             mensajeError.textContent = 'La descripción corta del problema solo debe tener una línea.';
             mensajeError.style.color = 'red';
@@ -89,15 +94,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const incidencia = {
             Id_Dependencia: formulario['sede'] ? formulario['sede'].value : null,
-            categoria: formulario.categoria.value,
-            tipo_dispositivo: formulario.tipo_dispositivo.value,
-            marca: formulario.marca.value.trim(),
-            modelo: formulario.modelo.value.trim() || null,
+            categoria: categoriaSelect.value,
+            tipo_dispositivo: tipoDispositivoSelect.value,
+            marca: formulario['marca'] ? formulario['marca'].value.trim() : null,
+            modelo: formulario['modelo'] ? formulario['modelo'].value.trim() || null : null,
             glosa: comentarios,
             tecnico_encargado: null,
             estado_incidencia: "PENDIENTE",
             fechayhora: new Date().toISOString(),
-            codigo_del_bien: formulario.codigo_bien.value.trim()
+            codigo_del_bien: formulario['codigo_bien'] ? formulario['codigo_bien'].value.trim() : null
         };
 
         const token = localStorage.getItem('token');
@@ -107,36 +112,40 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        try {
-            const response = await fetch(`${BASE_URL}/api/incidencias`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(incidencia)
+        fetch(`${BASE_URL}/api/incidencias`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(incidencia)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        console.error('Detalles del error:', errorData);
+                        mensajeError.textContent = `Error al registrar incidencia: ${errorData.mensaje || 'Error desconocido'}`;
+                        mensajeError.style.color = 'red';
+                        return Promise.reject('Error en respuesta del servidor');
+                    });
+                }
+                return response.json();
+            })
+            .then(() => {
+                mensajeError.textContent = '✔️ Incidencia registrada correctamente.';
+                mensajeError.style.color = 'green';
+
+                formulario.reset();
+                actualizarTipoDispositivo();
+
+                window.dispatchEvent(new CustomEvent('incidenciaCreada'));
+            })
+            .catch(error => {
+                console.error('Error al enviar incidencia:', error);
+                if (!mensajeError.textContent) { 
+                    mensajeError.textContent = 'Error al registrar incidencia. Por favor intente más tarde.';
+                    mensajeError.style.color = 'red';
+                }
             });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error('Detalles del error:', errorData);
-                mensajeError.textContent = `Error al registrar incidencia: ${errorData.mensaje || 'Error desconocido'}`;
-                mensajeError.style.color = 'red';
-                return;
-            }
-
-            mensajeError.textContent = '✔️ Incidencia registrada correctamente.';
-            mensajeError.style.color = 'green';
-
-            formulario.reset();
-            actualizarTipoDispositivo();
-
-            window.dispatchEvent(new CustomEvent('incidenciaCreada'));
-
-        } catch (error) {
-            console.error('Error al enviar incidencia:', error);
-            mensajeError.textContent = 'Error al registrar incidencia. Por favor intente más tarde.';
-            mensajeError.style.color = 'red';
-        }
     });
 });

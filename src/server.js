@@ -10,11 +10,8 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-app.options('/api/incidencias', cors());
-app.options('/api/incidencias/:id', cors());
-
 app.use(express.json());
-app.use(express.static('public')); 
+app.use(express.static('public'));
 
 app.use('/', routes);
 
