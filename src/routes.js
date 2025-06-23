@@ -1,3 +1,5 @@
+
+>> Archivo routes.js sin modificaciones:
 const express = require('express');
 const router = express.Router();
 const path = require('path');
@@ -21,13 +23,7 @@ router.get('/logout', autenticacionController.logout);
 router.get('/api/incidencias', appviewController.obtenerIncidencias);
 router.post('/api/incidencias', appviewController.crearIncidencia);
 
-console.log('===== Rutas cargadas =====');
-router.stack.forEach(layer => {
-    if (layer.route) {
-        const methods = Object.keys(layer.route.methods).join(', ').toUpperCase();
-        console.log(`${methods} ${layer.route.path}`);
-    }
-});
-console.log('==========================');
+router.post('/api/incidencias/:id/asignar', administradorController.asignarIncidencia);
+router.put('/api/incidencias/:id/estado', administradorController.actualizarEstadoIncidencia);
 
 module.exports = router;
