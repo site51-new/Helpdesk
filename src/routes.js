@@ -3,7 +3,6 @@ const router = express.Router();
 const path = require('path');
 
 const autenticacionController = require('./controllers/autenticacion.controller');
-const incidenciaController = require('./controllers/incidencia.controller');
 const appviewController = require('./controllers/appview.controller');
 const administradorController = require('./controllers/administrador.controller');
 
@@ -20,7 +19,10 @@ router.get('/logout', autenticacionController.logout);
 
 router.get('/api/incidencias', appviewController.obtenerIncidencias);
 router.post('/api/incidencias', appviewController.crearIncidencia);
-router.post('/api/incidencias/:id/asignar', administradorController.asignarIncidencia);
-router.put('/api/incidencias/:id/estado', administradorController.actualizarEstadoIncidencia);
+
+const idPattern = '[0-9]+';
+
+router.post(`/api/incidencias/:id(${idPattern})/asignar`, administradorController.asignarIncidencia);
+router.put(`/api/incidencias/:id(${idPattern})/estado`, administradorController.actualizarEstadoIncidencia);
 
 module.exports = router;

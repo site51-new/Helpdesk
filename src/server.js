@@ -18,16 +18,17 @@ app.options('*', cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.use((req, res, next) => {
-    console.log(`[RUTA SOLICITADA]: ${req.method} ${req.originalUrl}`);
+    console.log(`[${req.method}] ${req.originalUrl}`);
     next();
 });
 
 app.use('/', router);
 
-app.use((req, res, next) => {
+app.use((req, res) => {
     res.status(404).json({ mensaje: 'Ruta no encontrada' });
 });
 
