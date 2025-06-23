@@ -1,6 +1,6 @@
 ﻿const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => res.send('🚀 Backend activo'));
+router.get('/', (req, res) => res.send('✅ Backend funcionando simple'));
 
 module.exports = router;
