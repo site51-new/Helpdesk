@@ -20,6 +20,7 @@ router.get('/logout', autenticacionController.logout);
 
 router.get('/api/incidencias', appviewController.obtenerIncidencias);
 router.post('/api/incidencias', appviewController.crearIncidencia);
+
 router.post('/api/incidencias/:id/asignar', administradorController.asignarIncidencia);
 router.put('/api/incidencias/:id/estado', administradorController.actualizarEstadoIncidencia);
 

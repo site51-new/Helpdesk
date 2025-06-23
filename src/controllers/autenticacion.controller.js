@@ -14,6 +14,7 @@ exports.register = async (req, res) => {
             return res.status(400).json({ mensaje: 'El DNI debe tener 8 dígitos' });
         }
 
+        // Validación específica de contraseña: DNI + 'p' + [1-9]
         if (!new RegExp(`^${dni}p[1-9]$`).test(contrasena)) {
             return res.status(400).json({
                 mensaje: 'La contraseña debe ser el DNI seguido de la letra "p" y un dígito del 1 al 9'
@@ -28,7 +29,7 @@ exports.register = async (req, res) => {
         const hashedPassword = await bcrypt.hash(contrasena, 10);
 
         const nuevoUsuario = {
-            usuario: dni,
+            usuario: dni,  // Aquí 'usuario' es igual a dni (clave para login)
             password: hashedPassword,
             nombre,
             apellido,

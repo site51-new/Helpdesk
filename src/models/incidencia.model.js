@@ -17,7 +17,7 @@ const Incidencia = {
                     incidencia.estado_incidencia || 'Pendiente',
                     incidencia.fechayhora,
                     incidencia.codigo_del_bien,
-                    incidencia.usuario_id || null // Cambiado: permite null
+                    incidencia.usuario_id || null 
                 ],
             };
             const result = await pool.query(query);

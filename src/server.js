@@ -28,6 +28,7 @@ app.use((req, res, next) => {
 
 app.use('/', router);
 
+
 if (app._router && app._router.stack) {
     console.log('========== RUTAS DEFINIDAS EN SERVER ===========');
     app._router.stack.forEach(layer => {
@@ -39,10 +40,10 @@ if (app._router && app._router.stack) {
     console.log('===============================================');
 }
 
-
 app.use((req, res) => {
     res.status(404).json({ mensaje: 'Ruta no encontrada' });
 });
+
 
 app.use((err, req, res, next) => {
     console.error('Error inesperado:', err);
