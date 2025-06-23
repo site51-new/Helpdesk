@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000'; 
+const BASE_URL = 'https://mi-api-helpdesk.onrender.com';
 
 document.addEventListener('DOMContentLoaded', () => {
     const cuerpoTabla = document.getElementById('cuerpoTabla');
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function cargarIncidencias() {
         cuerpoTabla.innerHTML = '';
         try {
-            const resp = await fetch(`${BASE_URL}/api/incidencias`, { credentials: 'include' });
+            const resp = await fetch(`${BASE_URL}/api/incidencias`);
             if (!resp.ok) {
                 console.error('No se pudieron cargar las incidencias, status:', resp.status);
                 alert('No autorizado o error al cargar incidencias.');
@@ -142,7 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return fetch(`${BASE_URL}/api/incidencias/${id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
-                    credentials: 'include',
                     body: JSON.stringify({
                         tecnico_encargado: inc.tecnico_encargado,
                         estado_incidencia: inc.estado_incidencia
@@ -163,7 +162,6 @@ document.addEventListener('DOMContentLoaded', () => {
         cargarIncidencias();
     }
 
-    // Eventos
     btnGrabar.addEventListener('click', grabarFormulario);
     btnCancelar.addEventListener('click', cancelarCambios);
     lugarFiltro.addEventListener('change', filtrarIncidencias);

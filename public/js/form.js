@@ -66,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     actualizarTipoDispositivo();
-
     categoriaSelect.addEventListener('change', actualizarTipoDispositivo);
 
     formulario.addEventListener('submit', async (e) => {
