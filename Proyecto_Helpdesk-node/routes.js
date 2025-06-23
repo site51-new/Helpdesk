@@ -4,7 +4,7 @@ const router = express.Router();
 let incidencias = [];
 let idCounter = 1;
 
-router.get('/', (req, res) => res.send('✅ Backend funcionando correctamente'));
+router.get('index.html', (req, res) => res.send('✅ Backend funcionando correctamente'));
 
 router.get('/api/incidencias', (req, res) => {
     res.json(incidencias);
