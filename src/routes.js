@@ -1,5 +1,3 @@
-
->> Archivo routes.js sin modificaciones:
 const express = require('express');
 const router = express.Router();
 const path = require('path');
