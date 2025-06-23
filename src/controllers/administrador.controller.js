@@ -1,6 +1,8 @@
 const Incidencia = require('../models/incidencia.model');
 const Usuario = require('../models/usuario.model');
 
+const validarId = (id) => /^[0-9]+$/.test(id);
+
 exports.verificarRolAdministrador = async (req, res, next) => {
     try {
         const usuario = req.usuario;
@@ -24,14 +26,18 @@ exports.obtenerIncidenciasPendientes = async (req, res) => {
 };
 
 exports.asignarIncidencia = async (req, res) => {
+    const { id } = req.params;
+    if (!validarId(id)) {
+        return res.status(400).json({ mensaje: 'ID inválido' });
+    }
     try {
-        const incidencia = await Incidencia.obtenerIncidencia(req.params.id);
+        const incidencia = await Incidencia.obtenerIncidencia(id);
         if (!incidencia) {
             return res.status(404).json({ mensaje: 'Incidencia no encontrada' });
         }
         incidencia.tecnico_encargado = req.body.tecnico_encargado;
         incidencia.estado_incidencia = 'Asignada';
-        await Incidencia.actualizarIncidencia(req.params.id, incidencia);
+        await Incidencia.actualizarIncidencia(id, incidencia);
         res.json({ mensaje: 'Incidencia asignada con éxito' });
     } catch (error) {
         res.status(500).json({ mensaje: 'Error al asignar incidencia' });
@@ -39,13 +45,17 @@ exports.asignarIncidencia = async (req, res) => {
 };
 
 exports.actualizarEstadoIncidencia = async (req, res) => {
+    const { id } = req.params;
+    if (!validarId(id)) {
+        return res.status(400).json({ mensaje: 'ID inválido' });
+    }
     try {
-        const incidencia = await Incidencia.obtenerIncidencia(req.params.id);
+        const incidencia = await Incidencia.obtenerIncidencia(id);
         if (!incidencia) {
             return res.status(404).json({ mensaje: 'Incidencia no encontrada' });
         }
         incidencia.estado_incidencia = req.body.estado_incidencia;
-        await Incidencia.actualizarIncidencia(req.params.id, incidencia);
+        await Incidencia.actualizarIncidencia(id, incidencia);
         res.json({ mensaje: 'Estado de incidencia actualizado con éxito' });
     } catch (error) {
         res.status(500).json({ mensaje: 'Error al actualizar estado de incidencia' });
