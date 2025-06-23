@@ -28,11 +28,16 @@ app.use((req, res, next) => {
 
 app.use('/', router);
 
-app._router.stack.forEach(layer => {
-    if (layer.route) {
-        console.log(`🚀 Ruta cargada: ${Object.keys(layer.route.methods).join(',').toUpperCase()} ${layer.route.path}`);
-    }
-});
+if (app._router && app._router.stack) {
+    console.log('========== RUTAS DEFINIDAS EN SERVER ===========');
+    app._router.stack.forEach(layer => {
+        if (layer.route) {
+            const methods = Object.keys(layer.route.methods).join(',').toUpperCase();
+            console.log(`${methods} ${layer.route.path}`);
+        }
+    });
+    console.log('===============================================');
+}
 
 
 app.use((req, res) => {
