@@ -9,7 +9,6 @@ document.getElementById('btnIniciarSesion').addEventListener('click', (e) => {
         return;
     }
 
-    // Acceso administrador
     if (usuario === 'administrator' && contrasena === 'administratorp5') {
         window.location.href = 'administrator.html';
         return;
@@ -21,6 +20,7 @@ document.getElementById('btnIniciarSesion').addEventListener('click', (e) => {
 
     if (user) {
         localStorage.setItem("usuarioActivo", JSON.stringify(user));
+        localStorage.setItem("token", "usuario_dummy_token");
         window.location.href = 'appview.html';
     } else {
         alert('Credenciales inválidas. Verifique su DNI y contraseña.');
