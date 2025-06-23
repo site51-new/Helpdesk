@@ -10,7 +10,7 @@ const corsOptions = {
     origin: 'https://visitante1204.github.io',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
+    credentials: true,
 };
 
 app.use(cors(corsOptions));

@@ -7,7 +7,6 @@ const incidenciaController = require('./controllers/incidencia.controller');
 const appviewController = require('./controllers/appview.controller');
 const administradorController = require('./controllers/administrador.controller');
 
-// Rutas frontend
 router.get('/', (req, res) => res.sendFile(path.join(__dirname, '../docs/index.html')));
 router.get('/signup.html', (req, res) => res.sendFile(path.join(__dirname, '../docs/signup.html')));
 router.get('/appview.html', (req, res) => res.sendFile(path.join(__dirname, '../docs/appview.html')));
@@ -15,12 +14,10 @@ router.get('/administrator.html', (req, res) => res.sendFile(path.join(__dirname
 router.get('/helper.html', (req, res) => res.sendFile(path.join(__dirname, '../docs/helper.html')));
 router.get('/form.html', (req, res) => res.sendFile(path.join(__dirname, '../docs/form.html')));
 
-// Autenticación
 router.post('/register', autenticacionController.register);
 router.post('/login', autenticacionController.login);
 router.get('/logout', autenticacionController.logout);
 
-// Rutas API para incidencias
 router.get('/api/incidencias', appviewController.obtenerIncidencias);
 router.post('/api/incidencias', appviewController.crearIncidencia);
 router.post('/api/incidencias/:id/asignar', administradorController.asignarIncidencia);
