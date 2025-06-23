@@ -3,7 +3,7 @@ const pool = require('../db');
 const Usuario = {
     async crearUsuario(usuario) {
         try {
-            // Insertar en tPersonal y obtener Id_Personal generado
+      
             const resultPersonal = await pool.query(`
                 INSERT INTO "tPersonal" (correo, dni, "Id_Dependencia", usuario, password, "Nombres", apellidos)
                 VALUES ($1, $2, $3, $4, $5, $6, $7)
@@ -11,7 +11,7 @@ const Usuario = {
             `, [
                 usuario.correo,
                 usuario.dni,
-                usuario.Id_Dependencia || '1', // poner default o asegurarse que venga
+                usuario.Id_Dependencia || '1',
                 usuario.usuario,
                 usuario.password,
                 usuario.nombre,
@@ -20,7 +20,7 @@ const Usuario = {
 
             const idPersonal = resultPersonal.rows[0].Id_Personal;
 
-            // Insertar en tUsuarios solo con Id_Personal para herencia
+
             await pool.query(`
                 INSERT INTO "tUsuarios" ("Id_Personal")
                 VALUES ($1)
@@ -36,8 +36,7 @@ const Usuario = {
 
     async existeUsuarioPorCorreoODni(correo, dni) {
         try {
-            // Buscar en tPersonal donde están correo y dni
-            const query = {
+    const query = {
                 text: `SELECT 1 FROM "tPersonal" WHERE correo = $1 OR dni = $2 LIMIT 1`,
                 values: [correo, dni],
             };
@@ -51,7 +50,6 @@ const Usuario = {
 
     async obtenerUsuario(id) {
         try {
-            // Traer datos combinados con JOIN entre tUsuarios y tPersonal
             const query = {
                 text: `
                     SELECT u."Id_Usuario", p.*
@@ -71,7 +69,6 @@ const Usuario = {
 
     async obtenerUsuarioPorNombre(usuarioNombre) {
         try {
-            // Buscar por usuario en tPersonal y unir con tUsuarios
             const query = {
                 text: `
                     SELECT u."Id_Usuario", p.*
@@ -108,7 +105,6 @@ const Usuario = {
 
     async actualizarUsuario(id, usuario) {
         try {
-            // Actualizar en tPersonal porque ahí están los datos reales
             const query = {
                 text: `
                     UPDATE "tPersonal"
@@ -141,8 +137,7 @@ const Usuario = {
 
     async eliminarUsuario(id) {
         try {
-            // Borrar en tUsuarios (clave foránea) y en cascada en tPersonal si está configurado
-            const query = {
+          const query = {
                 text: `DELETE FROM "tUsuarios" WHERE "Id_Personal" = $1`,
                 values: [id],
             };

@@ -21,7 +21,13 @@ router.get('/logout', autenticacionController.logout);
 router.get('/api/incidencias', appviewController.obtenerIncidencias);
 router.post('/api/incidencias', appviewController.crearIncidencia);
 
-router.post('/api/incidencias/:id/asignar', administradorController.asignarIncidencia);
-router.put('/api/incidencias/:id/estado', administradorController.actualizarEstadoIncidencia);
+console.log('===== Rutas cargadas =====');
+router.stack.forEach(layer => {
+    if (layer.route) {
+        const methods = Object.keys(layer.route.methods).join(', ').toUpperCase();
+        console.log(`${methods} ${layer.route.path}`);
+    }
+});
+console.log('==========================');
 
 module.exports = router;

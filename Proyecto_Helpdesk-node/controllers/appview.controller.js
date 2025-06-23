@@ -22,7 +22,7 @@ exports.crearIncidencia = async (req, res) => {
     }
 
     try {
-        // Vinculamos la incidencia con el usuario en sesión
+
         req.body.Id_Dependencia = usuarioId;
 
         const incidencia = await Incidencia.crearIncidencia(req.body);
