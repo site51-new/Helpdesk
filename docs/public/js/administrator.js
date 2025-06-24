@@ -142,6 +142,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   cargarIncidencias();
 
-  // Recargar si se crea una nueva incidencia
   window.addEventListener('incidenciaCreada', cargarIncidencias);
 });

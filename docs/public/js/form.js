@@ -1,4 +1,4 @@
-const BASE_URL = 'https://mi-api-helpdesk.onrender.com';
+const BASE_URL = 'https://helpdesk-backend-e6xc.onrender.com';
 
 const opcionesPorCategoria = {
     "EQUIPOS DE CÓMPUTO": [

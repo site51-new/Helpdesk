@@ -1,11 +1,13 @@
-﻿const express = require('express');
+﻿
+const express = require('express');
 const cors = require('cors');
 const routes = require('./routes');
 
 const app = express();
 
+//Si en producción se requiere solamente permitir https://visitante1204.github.io , se reemplaza por el comodín:
 app.use(cors({
-    origin: 'https://visitante1204.github.io',
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
