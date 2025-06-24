@@ -56,13 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
             optionElem.value = opcion.value;
             optionElem.textContent = opcion.text;
 
-            if (opcionesHabilitadas.find(o => o.value === opcion.value)) {
-                optionElem.disabled = false;
-                optionElem.style.paddingLeft = '0';
-            } else {
-                optionElem.disabled = true;
-                optionElem.style.paddingLeft = '20px';
-            }
+            const habilitada = opcionesHabilitadas.some(o => o.value === opcion.value);
+            optionElem.disabled = !habilitada;
+            optionElem.style.paddingLeft = habilitada ? '0' : '20px';
+
             tipoDispositivoSelect.appendChild(optionElem);
         });
 
@@ -76,10 +73,15 @@ document.addEventListener('DOMContentLoaded', () => {
     formulario.addEventListener('submit', (e) => {
         e.preventDefault();
 
+        if (!mensajeError) {
+            console.error('Elemento mensaje-error no disponible.');
+            return;
+        }
+
         mensajeError.textContent = '';
         mensajeError.style.color = 'black';
 
-        const comentarios = formulario['comentarios'] ? formulario['comentarios'].value.trim() : '';
+        const comentarios = formulario['comentarios']?.value.trim() || '';
         if (comentarios.includes('\n')) {
             mensajeError.textContent = 'La descripción corta del problema solo debe tener una línea.';
             mensajeError.style.color = 'red';
@@ -93,16 +95,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const incidencia = {
-            Id_Dependencia: formulario['sede'] ? formulario['sede'].value : null,
+            Id_Dependencia: formulario['sede']?.value || null,
             categoria: categoriaSelect.value,
             tipo_dispositivo: tipoDispositivoSelect.value,
-            marca: formulario['marca'] ? formulario['marca'].value.trim() : null,
-            modelo: formulario['modelo'] ? formulario['modelo'].value.trim() || null : null,
+            marca: formulario['marca']?.value.trim() || null,
+            modelo: formulario['modelo']?.value.trim() || null,
             glosa: comentarios,
             tecnico_encargado: null,
             estado_incidencia: "PENDIENTE",
             fechayhora: new Date().toISOString(),
-            codigo_del_bien: formulario['codigo_bien'] ? formulario['codigo_bien'].value.trim() : null
+            codigo_del_bien: formulario['codigo_bien']?.value.trim() || null
         };
 
         const token = localStorage.getItem('token');
@@ -134,15 +136,13 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(() => {
                 mensajeError.textContent = '✔️ Incidencia registrada correctamente.';
                 mensajeError.style.color = 'green';
-
                 formulario.reset();
                 actualizarTipoDispositivo();
-
                 window.dispatchEvent(new CustomEvent('incidenciaCreada'));
             })
             .catch(error => {
                 console.error('Error al enviar incidencia:', error);
-                if (!mensajeError.textContent) { 
+                if (mensajeError && !mensajeError.textContent) {
                     mensajeError.textContent = 'Error al registrar incidencia. Por favor intente más tarde.';
                     mensajeError.style.color = 'red';
                 }
