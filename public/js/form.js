@@ -1,4 +1,5 @@
-﻿const BASE_URL = 'https://mi-api-helpdesk.onrender.com';
+﻿
+const BASE_URL = 'https://mi-api-helpdesk.onrender.com';
 
 const opcionesPorCategoria = {
     "EQUIPOS DE CÓMPUTO": [
@@ -63,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 optionElem.disabled = true;
                 optionElem.style.paddingLeft = '20px';
             }
+
             tipoDispositivoSelect.appendChild(optionElem);
         });
 
@@ -93,16 +95,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const incidencia = {
-            Id_Dependencia: formulario['sede'] ? formulario['sede'].value : null,
+            Id_Dependencia: formulario['sede']?.value || null,
             categoria: categoriaSelect.value,
             tipo_dispositivo: tipoDispositivoSelect.value,
-            marca: formulario['marca'] ? formulario['marca'].value.trim() : null,
-            modelo: formulario['modelo'] ? formulario['modelo'].value.trim() || null : null,
+            marca: formulario['marca']?.value.trim() || null,
+            modelo: formulario['modelo']?.value.trim() || null,
             glosa: comentarios,
             tecnico_encargado: null,
             estado_incidencia: "PENDIENTE",
             fechayhora: new Date().toISOString(),
-            codigo_del_bien: formulario['codigo_bien'] ? formulario['codigo_bien'].value.trim() : null
+            codigo_del_bien: formulario['codigo_bien']?.value.trim() || null
         };
 
         const token = localStorage.getItem('token');
@@ -142,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => {
                 console.error('Error al enviar incidencia:', error);
-                if (!mensajeError.textContent) { 
+                if (!mensajeError.textContent) {
                     mensajeError.textContent = 'Error al registrar incidencia. Por favor intente más tarde.';
                     mensajeError.style.color = 'red';
                 }
