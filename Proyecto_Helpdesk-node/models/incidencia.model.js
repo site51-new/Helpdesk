@@ -7,7 +7,7 @@ const Incidencia = {
             const nuevaIncidenciaId = uuidv4();
 
             const query = {
-                text: `INSERT INTO "tIncidencias" (
+                text: `INSERT INTO helpdesk_system."tIncidencias" (
                     "Id_Incidencia", "Id_Dependencia", categoria, tipo_dispositivo, marca, modelo,
                     glosa, tecnico_encargado, estado_incidencia, fechayhora, codigo_del_bien
                 ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
@@ -19,11 +19,11 @@ const Incidencia = {
                     incidencia.tipo_dispositivo,
                     incidencia.marca,
                     incidencia.modelo || null,
-                    incidencia.glosa,
+                    incidencia.glosa || null,
                     incidencia.tecnico_encargado || null,
                     incidencia.estado_incidencia || 'Pendiente',
                     incidencia.fechayhora,
-                    incidencia.codigo_del_bien
+                    incidencia.codigo_del_bien || null,
                 ],
             };
 
@@ -38,7 +38,7 @@ const Incidencia = {
     async obtenerIncidencia(id) {
         try {
             const query = {
-                text: `SELECT * FROM "tIncidencias" WHERE "Id_Incidencia" = $1`,
+                text: `SELECT * FROM helpdesk_system."tIncidencias" WHERE "Id_Incidencia" = $1`,
                 values: [id],
             };
             const result = await pool.query(query);
@@ -52,7 +52,7 @@ const Incidencia = {
     async obtenerTodasLasIncidencias() {
         try {
             const query = {
-                text: `SELECT * FROM "tIncidencias" ORDER BY fechayhora DESC`,
+                text: `SELECT * FROM helpdesk_system."tIncidencias" ORDER BY fechayhora DESC`,
             };
             const result = await pool.query(query);
             return result.rows;
@@ -65,7 +65,7 @@ const Incidencia = {
     async actualizarIncidencia(id, incidencia) {
         try {
             const query = {
-                text: `UPDATE "tIncidencias"
+                text: `UPDATE helpdesk_system."tIncidencias"
                 SET "Id_Dependencia" = $1,
                     categoria = $2,
                     tipo_dispositivo = $3,
@@ -84,11 +84,11 @@ const Incidencia = {
                     incidencia.tipo_dispositivo,
                     incidencia.marca,
                     incidencia.modelo || null,
-                    incidencia.glosa,
+                    incidencia.glosa || null,
                     incidencia.tecnico_encargado || null,
                     incidencia.estado_incidencia,
                     incidencia.fechayhora,
-                    incidencia.codigo_del_bien,
+                    incidencia.codigo_del_bien || null,
                     id
                 ],
             };
@@ -103,7 +103,7 @@ const Incidencia = {
     async eliminarIncidencia(id) {
         try {
             const query = {
-                text: `DELETE FROM "tIncidencias" WHERE "Id_Incidencia" = $1`,
+                text: `DELETE FROM helpdesk_system."tIncidencias" WHERE "Id_Incidencia" = $1`,
                 values: [id],
             };
             await pool.query(query);
@@ -116,7 +116,7 @@ const Incidencia = {
     async obtenerIncidenciasPorUsuario(idUsuario) {
         try {
             const query = {
-                text: `SELECT * FROM "tIncidencias" WHERE "Id_Dependencia" = $1 ORDER BY fechayhora DESC`,
+                text: `SELECT * FROM helpdesk_system."tIncidencias" WHERE "Id_Dependencia" = $1 ORDER BY fechayhora DESC`,
                 values: [idUsuario],
             };
             const result = await pool.query(query);
