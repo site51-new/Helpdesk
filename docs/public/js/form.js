@@ -1,4 +1,4 @@
-const BASE_URL = 'https://helpdesk-backend-e6xc.onrender.com';
+const BASE_URL = 'https://mi-api-helpdesk.onrender.com';
 
 const opcionesPorCategoria = {
     "EQUIPOS DE CÓMPUTO": [
@@ -48,35 +48,25 @@ document.addEventListener('DOMContentLoaded', () => {
     function actualizarTipoDispositivo() {
         const categoriaSeleccionada = categoriaSelect.value;
         tipoDispositivoSelect.innerHTML = '';
-
         const opcionesHabilitadas = opcionesPorCategoria[categoriaSeleccionada] || [];
 
         todasOpciones.forEach(opcion => {
             const optionElem = document.createElement('option');
             optionElem.value = opcion.value;
             optionElem.textContent = opcion.text;
-
-            const habilitada = opcionesHabilitadas.some(o => o.value === opcion.value);
-            optionElem.disabled = !habilitada;
-            optionElem.style.paddingLeft = habilitada ? '0' : '20px';
-
+            optionElem.disabled = !opcionesHabilitadas.some(o => o.value === opcion.value);
+            optionElem.style.paddingLeft = optionElem.disabled ? '20px' : '0';
             tipoDispositivoSelect.appendChild(optionElem);
         });
 
-        const primeraHabilitada = opcionesHabilitadas[0];
-        tipoDispositivoSelect.value = primeraHabilitada ? primeraHabilitada.value : '';
+        tipoDispositivoSelect.value = opcionesHabilitadas[0]?.value || '';
     }
 
     actualizarTipoDispositivo();
     categoriaSelect.addEventListener('change', actualizarTipoDispositivo);
 
-    formulario.addEventListener('submit', (e) => {
+    formulario.addEventListener('submit', async (e) => {
         e.preventDefault();
-
-        if (!mensajeError) {
-            console.error('Elemento mensaje-error no disponible.');
-            return;
-        }
 
         mensajeError.textContent = '';
         mensajeError.style.color = 'black';
@@ -114,38 +104,42 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        fetch(`${BASE_URL}/api/incidencias`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(incidencia)
-        })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(errorData => {
-                        console.error('Detalles del error:', errorData);
-                        mensajeError.textContent = `Error al registrar incidencia: ${errorData.mensaje || 'Error desconocido'}`;
-                        mensajeError.style.color = 'red';
-                        return Promise.reject('Error en respuesta del servidor');
-                    });
-                }
-                return response.json();
-            })
-            .then(() => {
-                mensajeError.textContent = '✔️ Incidencia registrada correctamente.';
-                mensajeError.style.color = 'green';
-                formulario.reset();
-                actualizarTipoDispositivo();
-                window.dispatchEvent(new CustomEvent('incidenciaCreada'));
-            })
-            .catch(error => {
-                console.error('Error al enviar incidencia:', error);
-                if (mensajeError && !mensajeError.textContent) {
-                    mensajeError.textContent = 'Error al registrar incidencia. Por favor intente más tarde.';
-                    mensajeError.style.color = 'red';
-                }
+        try {
+            const resp = await fetch(`${BASE_URL}/api/incidencias`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(incidencia)
             });
+
+           
+            const text = await resp.text();
+            let data;
+            try {
+                data = text ? JSON.parse(text) : null;
+            } catch {
+                data = null;
+            }
+
+            if (!resp.ok) {
+                console.error('Detalles del error en respuesta:', data || text);
+                mensajeError.textContent = `Error al registrar incidencia: ${data?.mensaje || resp.statusText || 'Error desconocido'}`;
+                mensajeError.style.color = 'red';
+                return;
+            }
+
+            mensajeError.textContent = '✔️ Incidencia registrada correctamente.';
+            mensajeError.style.color = 'green';
+            formulario.reset();
+            actualizarTipoDispositivo();
+            window.dispatchEvent(new CustomEvent('incidenciaCreada'));
+
+        } catch (error) {
+            console.error('Error al enviar incidencia:', error);
+            mensajeError.textContent = 'Error al registrar incidencia. Por favor intente más tarde.';
+            mensajeError.style.color = 'red';
+        }
     });
 });
