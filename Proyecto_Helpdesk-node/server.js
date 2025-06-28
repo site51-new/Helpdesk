@@ -18,3 +18,8 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`✅ Servidor escuchando en puerto ${PORT}`));
+
+app.use((err, req, res, next) => {
+    console.error('Error capturado en middleware:', err);
+    res.status(500).json({ mensaje: 'Error interno del servidor' });
+});
