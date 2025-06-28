@@ -1,4 +1,5 @@
-const BASE_URL = 'https://mi-api-helpdesk.onrender.com';
+
+const BASE_URL = 'https://helpdesk-backend-e6xc.onrender.com';
 
 const opcionesPorCategoria = {
     "EQUIPOS DE CÓMPUTO": [
@@ -114,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(incidencia)
             });
 
-           
             const text = await resp.text();
             let data;
             try {
