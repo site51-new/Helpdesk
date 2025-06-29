@@ -6,18 +6,17 @@ const incidenciaController = {
             const incidenciasRaw = await Incidencia.obtenerTodasLasIncidencias();
 
             const incidencias = incidenciasRaw.map(inc => ({
-                id_incidencia: inc.Id_Incidencia || inc.id_incidencia || inc.id || inc.Id || null,
-                Id_incidencia: inc.Id_Incidencia || inc.id_incidencia || inc.id || inc.Id || null,
-                Id_Dependencia: inc.Id_Dependencia || inc.Id_dependencia || inc.id_dependencia || inc.sede || '',
-                fechayhora: inc.fechayhora || inc.fecha || inc.fecha_hora || inc.created_at || '',
+                Id_Incidencia: inc.Id_Incidencia || null,
+                Id_Dependencia: inc.Id_Dependencia || '',
+                fechayhora: inc.fechayhora || '',
                 categoria: inc.categoria || '',
                 glosa: inc.glosa || '',
                 tecnico_encargado: inc.tecnico_encargado || '',
-                estado_incidencia: inc.estado_incidencia || inc.estado || 'Pendiente',
+                estado_incidencia: inc.estado_incidencia || 'Pendiente',
                 tipo_dispositivo: inc.tipo_dispositivo || '',
                 marca: inc.marca || '',
                 modelo: inc.modelo || '',
-                codigo_del_bien: inc.codigo_del_bien || ''
+                codigo_del_bien: inc.codigo_del_bien || '',
             }));
 
             res.json(incidencias);
@@ -31,7 +30,7 @@ const incidenciaController = {
         try {
             const incidencia = req.body;
 
-            if (!incidencia.Id_Dependencia && !incidencia.Id_dependencia && !incidencia.id_dependencia) {
+            if (!incidencia.Id_Dependencia) {
                 return res.status(400).json({ mensaje: 'Falta el campo obligatorio Id_Dependencia' });
             }
             if (!incidencia.categoria) {
@@ -56,14 +55,14 @@ const incidenciaController = {
             const nuevaIncidencia = await Incidencia.crearIncidencia(incidencia);
             res.status(201).json({
                 mensaje: 'Incidencia creada correctamente',
-                incidencia: nuevaIncidencia
+                incidencia: nuevaIncidencia,
             });
         } catch (error) {
             console.error('Error al crear incidencia:', error);
             res.status(500).json({
                 mensaje: 'Error al crear incidencia',
                 detalles: error.message,
-                stack: error.stack
+                stack: error.stack,
             });
         }
     },
@@ -78,7 +77,7 @@ const incidenciaController = {
             }
             res.json({
                 mensaje: 'Incidencia actualizada correctamente',
-                incidencia: incidenciaActualizada
+                incidencia: incidenciaActualizada,
             });
         } catch (error) {
             console.error('Error al actualizar incidencia:', error);
@@ -88,7 +87,7 @@ const incidenciaController = {
 
     async obtenerIncidenciasPorUsuario(req, res) {
         try {
-            const usuarioId = req.usuarioId;  
+            const usuarioId = req.usuarioId;
             const incidencias = await Incidencia.obtenerIncidenciasPorUsuario(usuarioId);
             res.json(incidencias);
         } catch (error) {
