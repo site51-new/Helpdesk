@@ -1,25 +1,15 @@
 ﻿const { Pool } = require('pg');
 require('dotenv').config();
 
-const requiredEnv = ['DB_USER', 'DB_PASSWORD', 'DB_NAME', 'DB_HOST'];
-const missing = requiredEnv.filter((key) => !process.env[key]);
-
-if (missing.length > 0) {
-    console.error(`Faltan variables de entorno necesarias: ${missing.join(', ')}`);
+if (!process.env.DATABASE_URL) {
+    console.error('❌ Falta la variable DATABASE_URL en el entorno');
     process.exit(1);
 }
 
-console.log('Variables cargadas correctamente desde .env');
-
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: Number(process.env.DB_PORT) || 5432,
+    connectionString: process.env.DATABASE_URL,
     ssl: {
-        require: true,                
-        rejectUnauthorized: false     
+        rejectUnauthorized: false
     }
 });
 
