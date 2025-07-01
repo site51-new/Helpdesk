@@ -2,7 +2,7 @@
 require('dotenv').config();
 
 if (!process.env.DATABASE_URL) {
-    console.error('❌ Falta la variable DATABASE_URL en el entorno');
+    console.error('❌ Falta DATABASE_URL');
     process.exit(1);
 }
 
@@ -13,12 +13,7 @@ const pool = new Pool({
     }
 });
 
-pool.on('connect', () => {
-    console.log('✅ Conexión exitosa a la base de datos PostgreSQL');
-});
-
-pool.on('error', (err) => {
-    console.error('❌ Error en la conexión a PostgreSQL:', err);
-});
+pool.on('connect', () => console.log('✅ Conexión PostgreSQL exitosa'));
+pool.on('error', err => console.error('❌ Conexión PostgreSQL falló:', err));
 
 module.exports = pool;
