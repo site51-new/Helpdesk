@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            mensajeError.textContent = '✔️ Incidencia registrada correctamente.';
+            mensajeError.textContent = 'Incidencia registrada correctamente.';
             mensajeError.style.color = 'green';
             formulario.reset();
             actualizarTipoDispositivo();
