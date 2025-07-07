@@ -1,4 +1,3 @@
-
 const BASE_URL = 'https://helpdesk-backend-e6xc.onrender.com';
 
 const opcionesPorCategoria = {
@@ -125,6 +124,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (!resp.ok) {
                 console.error('Detalles del error en respuesta:', data || text);
+                console.error('Estado de la respuesta:', resp.status);
+                console.error('Texto de la respuesta:', resp.statusText);
                 mensajeError.textContent = `Error al registrar incidencia: ${data?.mensaje || resp.statusText || 'Error desconocido'}`;
                 mensajeError.style.color = 'red';
                 return;
