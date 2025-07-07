@@ -27,45 +27,40 @@ const incidenciaController = {
     },
 
     async crearIncidencia(req, res) {
-        try {
-            const incidencia = req.body;
+    try {
+        const incidencia = req.body;
 
-            if (!incidencia.Id_Dependencia) {
-                return res.status(400).json({ mensaje: 'Falta el campo obligatorio Id_Dependencia' });
-            }
-            if (!incidencia.categoria) {
-                return res.status(400).json({ mensaje: 'Falta el campo obligatorio categoría' });
-            }
-            if (!incidencia.tipo_dispositivo) {
-                return res.status(400).json({ mensaje: 'Falta el campo obligatorio tipo_dispositivo' });
-            }
-            if (!incidencia.marca) {
-                return res.status(400).json({ mensaje: 'Falta el campo obligatorio marca' });
-            }
-            if (!incidencia.glosa) {
-                return res.status(400).json({ mensaje: 'Falta el campo obligatorio glosa' });
-            }
-            if (!incidencia.fechayhora) {
-                return res.status(400).json({ mensaje: 'Falta el campo obligatorio fechayhora' });
-            }
-            if (!incidencia.codigo_del_bien) {
-                return res.status(400).json({ mensaje: 'Falta el campo obligatorio codigo_del_bien' });
-            }
+        const camposObligatorios = [
+            'Id_Dependencia',
+            'categoria',
+            'tipo_dispositivo',
+            'marca',
+            'glosa',
+            'fechayhora',
+            'codigo_del_bien',
+        ];
 
-            const nuevaIncidencia = await Incidencia.crearIncidencia(incidencia);
-            res.status(201).json({
-                mensaje: 'Incidencia creada correctamente',
-                incidencia: nuevaIncidencia,
-            });
-        } catch (error) {
-            console.error('Error al crear incidencia:', error);
-            res.status(500).json({
-                mensaje: 'Error al crear incidencia',
-                detalles: error.message,
-                stack: error.stack,
-            });
+        for (const campo of camposObligatorios) {
+            if (!incidencia[campo]) {
+                return res.status(400).json({ mensaje: `Falta el campo obligatorio ${campo}` });
+            }
         }
-    },
+
+        const nuevaIncidencia = await Incidencia.crearIncidencia(incidencia);
+        res.status(201).json({
+            mensaje: 'Incidencia creada correctamente',
+            incidencia: nuevaIncidencia,
+        });
+    } catch (error) {
+        console.error('Error al crear incidencia:', error);
+        res.status(500).json({
+            mensaje: 'Error al crear incidencia',
+            detalles: error.message,
+            errorCompleto: error,
+        });
+    }
+}
+
 
     async actualizarIncidencia(req, res) {
         try {
