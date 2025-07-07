@@ -2,38 +2,36 @@
 const { v4: uuidv4 } = require('uuid');
 
 const Incidencia = {
-    async crearIncidencia(req, res) {
+    async crearIncidencia(incidencia) {
     try {
-        const incidencia = req.body;
+        const nuevaIncidenciaId = uuidv4();
 
-        const camposObligatorios = [
-            'Id_Dependencia',
-            'categoria',
-            'tipo_dispositivo',
-            'marca',
-            'glosa',
-            'fechayhora',
-            'codigo_del_bien',
-        ];
+        const query = {
+            text: `INSERT INTO helpdesk_system."tIncidencias" (
+                "Id_Incidencia", "Id_Dependencia", categoria, tipo_dispositivo, marca, modelo,
+                glosa, tecnico_encargado, estado_incidencia, fechayhora, codigo_del_bien
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+            RETURNING *`,
+            values: [
+                nuevaIncidenciaId,
+                incidencia.Id_Dependencia,
+                incidencia.categoria,
+                incidencia.tipo_dispositivo,
+                incidencia.marca,
+                incidencia.modelo || null,
+                incidencia.glosa || null,
+                incidencia.tecnico_encargado || null,
+                incidencia.estado_incidencia || 'Pendiente',
+                incidencia.fechayhora,
+                incidencia.codigo_del_bien || null,
+            ],
+        };
 
-        for (const campo of camposObligatorios) {
-            if (!incidencia[campo]) {
-                return res.status(400).json({ mensaje: `Falta el campo obligatorio ${campo}` });
-            }
-        }
-
-        const nuevaIncidencia = await Incidencia.crearIncidencia(incidencia);
-        res.status(201).json({
-            mensaje: 'Incidencia creada correctamente',
-            incidencia: nuevaIncidencia,
-        });
+        const result = await pool.query(query);
+        return result.rows[0];
     } catch (error) {
-        console.error('Error al crear incidencia:', error);
-        res.status(500).json({
-            mensaje: 'Error al crear incidencia',
-            detalles: error.message,
-            errorCompleto: error, 
-        });
+        console.error("❌ Error en modelo crearIncidencia:", error);
+        throw new Error(error.message);
     }
 }
 
