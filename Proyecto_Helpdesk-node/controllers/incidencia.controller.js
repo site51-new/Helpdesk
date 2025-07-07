@@ -51,14 +51,15 @@ const incidenciaController = {
             mensaje: 'Incidencia creada correctamente',
             incidencia: nuevaIncidencia,
         });
-    } catch (error) {
-        console.error('Error al crear incidencia:', error);
-        res.status(500).json({
-            mensaje: 'Error al crear incidencia',
-            detalles: error.message,
-            errorCompleto: error,
-        });
-    }
+        catch (error) {
+            console.error('❌ Error al crear incidencia:', error);
+            res.status(500).json({
+                mensaje: 'Error al crear incidencia',
+                detalles: error.message,
+                errorCompleto: error.stack, 
+            });
+        }
+
 }
 
 
