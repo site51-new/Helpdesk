@@ -105,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
+            console.log("📦 Datos enviados al backend:", incidencia);
             const resp = await fetch(`${BASE_URL}/api/incidencias`, {
                 method: 'POST',
                 headers: {
