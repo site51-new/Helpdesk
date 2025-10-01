@@ -111,7 +111,7 @@ function responderOpcion(opcion) {
                     conversacion.scrollTop = conversacion.scrollTop + 1000;
 
                     if (valorEntrada == "1") {
-                        var respuesta2 = ">>🔧 Muy bien, en el siguiente Link puedes registrar tu incidencia: <a href='https://visitante1204.github.io/Helpdesk/form.html'>https://visitante1204.github.io/Helpdesk/form.html</a>";
+                        var respuesta2 = ">>🔧 Muy bien, en el siguiente Link puedes registrar tu incidencia: <a href='https://site51.new.github.io/Helpdesk/form.html'>https://visitante1204.github.io/Helpdesk/form.html</a>";
                         var mensaje2 = document.createElement("div");
                         mensaje2.className = "mensaje";
                         mensaje2.innerHTML = "<p class='texto'>" + respuesta2 + "</p>";
@@ -120,7 +120,7 @@ function responderOpcion(opcion) {
                         document.querySelectorAll(".entrada")[document.querySelectorAll(".entrada").length - 1].remove();
                         document.querySelectorAll(".enviar")[document.querySelectorAll(".enviar").length - 1].remove();
                     } else if (valorEntrada == "2") {
-                        var respuesta2 = ">>🔧 Okay, ahora te brindaré el link de acceso para que puedas detallar tu Incidencia: <a href='https://visitante1204.github.io/Helpdesk/form.html'>https://visitante1204.github.io/Helpdesk/form.html</a>";
+                        var respuesta2 = ">>🔧 Okay, ahora te brindaré el link de acceso para que puedas detallar tu Incidencia: <a href='https://site51-new.github.io/Helpdesk/form.html'>https://visitante1204.github.io/Helpdesk/form.html</a>";
                         var mensaje2 = document.createElement("div");
                         mensaje2.className = "mensaje";
                         mensaje2.innerHTML = "<p class='texto'>" + respuesta2 + "</p>";
@@ -178,7 +178,7 @@ function responderOpcion(opcion) {
                             conversacion.scrollTop = conversacion.scrollTop + 1000;
 
                             if (valorEntrada2 == "1") {
-                                var respuesta3 = ">>🔧 Okay, entonces te brindaré el acceso al formulario de Incidencia Técnica: <a href='https://visitante1204.github.io/Helpdesk/form.html'>https://visitante1204.github.io/Helpdesk/form.html</a>";
+                                var respuesta3 = ">>🔧 Okay, entonces te brindaré el acceso al formulario de Incidencia Técnica: <a href='https://site51-new.github.io/Helpdesk/form.html'>https://visitante1204.github.io/Helpdesk/form.html</a>";
                                 var mensaje4 = document.createElement("div");
                                 mensaje4.className = "mensaje";
                                 mensaje4.innerHTML = "<p class='texto'>" + respuesta3 + "</p>";
@@ -211,7 +211,7 @@ function responderOpcion(opcion) {
                                         conversacion.appendChild(mensaje6);
                                         conversacion.scrollTop = conversacion.scrollTop + 1000;
                                     } else if (valorEntrada3 == "2") {
-                                        var respuesta4 = ">>🔧 Okay, entonces te brindaré el acceso al formulario de Incidencia Técnica: <a href='https://visitante1204.github.io/Helpdesk/form.html'>https://visitante1204.github.io/Helpdesk/form.html</a>";
+                                        var respuesta4 = ">>🔧 Okay, entonces te brindaré el acceso al formulario de Incidencia Técnica: <a href='https://site51-new.github.io/Helpdesk/form.html'>https://visitante1204.github.io/Helpdesk/form.html</a>";
                                         var mensaje6 = document.createElement("div");
                                         mensaje6.className = "mensaje";
                                         mensaje6.innerHTML = "<p class='texto'>" + respuesta4 + "</p>";
@@ -229,7 +229,7 @@ function responderOpcion(opcion) {
                             }
                         });
                     } else if (valorEntrada == "2") {
-                        var respuesta2 = ">>🔧 Okay, entonces te brindaré el acceso al formulario de Incidencia Técnica: <a href='https://visitante1204.github.io/Helpdesk/form.html'>https://visitante1204.github.io/Helpdesk/form.html</a>";
+                        var respuesta2 = ">>🔧 Okay, entonces te brindaré el acceso al formulario de Incidencia Técnica: <a href='https://site51-new.github.io/Helpdesk/form.html'>https://visitante1204.github.io/Helpdesk/form.html</a>";
                         var mensaje2 = document.createElement("div");
                         mensaje2.className = "mensaje";
                         mensaje2.innerHTML = "<p class='texto'>" + respuesta2 + "</p>";
@@ -249,7 +249,7 @@ function responderOpcion(opcion) {
                 break;
 
             case "3":
-                var respuesta = ">>🔧 En el siguiente link de acceso podrás incluir los detalles de tu Incidencia: <a href='https://visitante1204.github.io/Helpdesk/form.html'>https://visitante1204.github.io/Helpdesk/form.html</a>";
+                var respuesta = ">>🔧 En el siguiente link de acceso podrás incluir los detalles de tu Incidencia: <a href='https://site51-new.github.io/Helpdesk/form.html'>https://visitante1204.github.io/Helpdesk/form.html</a>";
                 var mensaje = document.createElement("div");
                 mensaje.className = "mensaje";
                 mensaje.innerHTML = "<p class='texto'>" + respuesta + "</p>";
