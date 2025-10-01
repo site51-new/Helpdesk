@@ -111,7 +111,7 @@ function responderOpcion(opcion) {
                     conversacion.scrollTop = conversacion.scrollTop + 1000;
 
                     if (valorEntrada == "1") {
-                        var respuesta2 = ">>🔧 Muy bien, en el siguiente Link puedes registrar tu incidencia: <a href='https://site51.new.github.io/Helpdesk/form.html'>https://visitante1204.github.io/Helpdesk/form.html</a>";
+                        var respuesta2 = ">>🔧 Muy bien, en el siguiente Link puedes registrar tu incidencia: <a href='https://site51-new.github.io/Helpdesk/form.html'>https://visitante1204.github.io/Helpdesk/form.html</a>";
                         var mensaje2 = document.createElement("div");
                         mensaje2.className = "mensaje";
                         mensaje2.innerHTML = "<p class='texto'>" + respuesta2 + "</p>";
